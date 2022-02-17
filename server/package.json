@@ -4,6 +4,8 @@
   "description": "Abschlussarbeit im Fach AP von Maximilian Beutner und Sebastian Roßberger",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js",
+    "run": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Probastian/berufsschule_projekt/issues"
   },
-  "homepage": "https://github.com/Probastian/berufsschule_projekt#readme"
+  "homepage": "https://github.com/Probastian/berufsschule_projekt#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
