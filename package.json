@@ -1,0 +1,19 @@
+{
+  "name": "berufsschule_projekt",
+  "version": "1.0.0",
+  "description": "Abschlussarbeit im Fach AP von Maximilian Beutner und Sebastian Roßberger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Probastian/berufsschule_projekt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Probastian/berufsschule_projekt/issues"
+  },
+  "homepage": "https://github.com/Probastian/berufsschule_projekt#readme"
+}
