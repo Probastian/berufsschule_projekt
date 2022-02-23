@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { TopbarComponent } from './component/topbar/topbar.component';
 import { LoginComponent } from './component/login/login.component';
 import { RouterModule } from '@angular/router';
+import { BasepageComponent } from './component/basepage/basepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopbarComponent,
-    LoginComponent
+    LoginComponent,
+    BasepageComponent
   ],
   imports: [
     BrowserModule,
