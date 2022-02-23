@@ -1,0 +1,49 @@
+:root {
+    /*Complementary color palette tool: https://www.toptal.com/designers/colourcode/monochrome-color-builder*/
+    --yarac-very-light: #D7EEA6;
+    --yarac-light: #C3E57C;
+    --yarac-primary: #B9E067;
+    --yarac-dark: #9ACE2C;
+    --yarac-very-dark: #7AA324;
+
+    /* 10 Shades of gray*/
+    --color-gray-100: #f8f9fa;
+    --color-gray-200: #e9ecef;
+    --color-gray-300: #dee2e6;
+    --color-gray-400: #ced4da;
+    --color-gray-500: #adb5bd;
+    --color-gray-600: #6c757d;
+    --color-gray-700: #495057;
+    --color-gray-800: #343a40;
+    --color-gray-900: #212529;
+}
+
+.bg-yarac-very-light {
+    background-color: var(--yarac-very-light) !important;
+}
+
+.bg-yarac-primary {
+    background-color: var(--yarac-primary) !important;
+}
+
+.bg-yarac-very-dark {
+    background-color: var(--yarac-very-dark) !important;
+}
+
+.border-bottom-yarac-light {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--yarac-light) !important;
+}
+
+.border-bottom-yarac-primary {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--yarac-primary) !important;
+}
+
+.border-bottom-yarac-dark {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--yarac-very-dark) !important;
+}

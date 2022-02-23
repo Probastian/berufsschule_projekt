@@ -1,0 +1,25 @@
+.card:not(.no-yarac) {
+    border-color: var(--yarac-primary);
+}
+
+.card:not(.no-yarac) .card-header {
+    border-bottom-color: var(--yarac-very-light);
+    border-bottom-width: 2px;
+}
+
+.card:not(.no-yarac) .card-footer {
+    border-top-color: var(--yarac-very-light);
+    border-top-width: 2px;
+}
+
+.card:not(.no-override) {
+    border-width: 2px;
+}
+
+.card:not(.no-override) .card-header {
+    border-bottom-width: 2px;
+}
+
+.card:not(.no-override) .card-footer {
+    border-top-width: 2px;
+}
