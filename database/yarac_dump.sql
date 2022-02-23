@@ -19,8 +19,10 @@ CREATE TABLE IF NOT EXISTS `yarac`.`user` (
   `password` VARCHAR(64) NULL,
   `join_date` DATE NOT NULL DEFAULT NOW(),
   `role` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `prevent_username_duplicates` (username),
+  UNIQUE KEY `prevent_email_duplicates` (email)
+)ENGINE = InnoDB;
 
 INSERT INTO `yarac`.`user`(
   username, 
@@ -38,13 +40,14 @@ CREATE TABLE IF NOT EXISTS `yarac`.`topic` (
   `creator` INT NOT NULL,
   `color` VARCHAR(255) NOT NULL DEFAULT '#fff',
   PRIMARY KEY (`id`),
+  UNIQUE KEY 'prevent_name_duplicates' (name),
   INDEX `fk_topic_user_idx` (`creator` ASC) VISIBLE,
   CONSTRAINT `fk_topic_user`
     FOREIGN KEY (`creator`)
     REFERENCES `yarac`.`user` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+)ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `yarac`.`post` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -70,6 +73,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `yarac`.`topic_member` (
   `uid` INT NOT NULL,
   `tid` INT NOT NULL,
+  PRIMARY KEY (uid, tid),
   INDEX `fk_topic_member_user1_idx` (`uid` ASC) VISIBLE,
   INDEX `fk_topic_member_topic1_idx` (`tid` ASC) VISIBLE,
   CONSTRAINT `fk_topic_member_user1`
@@ -110,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `yarac`.`label` (
   `topic_id` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `prevent_label_duplicates` (topic_id, name),
   CONSTRAINT `fk_topic_label`
     FOREIGN KEY (`topic_id`)
     REFERENCES `yarac`.`topic` (`id`)
@@ -117,7 +122,8 @@ CREATE TABLE IF NOT EXISTS `yarac`.`label` (
 
 CREATE TABLE IF NOT EXISTS `yarac`.`post_label` (
   `post_id` INT NOT NULL,
-  `label_id` INT NOT NULL,
+  `label_id` INT NOT NULL, 
+  UNIQUE KEY `prevent_duplicated_assignments` (post_id, label_id),
   CONSTRAINT `fk_post`
     FOREIGN KEY (`post_id`)
     REFERENCES `yarac`.`post` (`id`),
