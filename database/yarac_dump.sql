@@ -132,6 +132,13 @@ CREATE TABLE IF NOT EXISTS `yarac`.`post_label` (
     REFERENCES `yarac`.`label` (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS session(
+  `user_id` INT NOT NULL,
+  `session_key` VARCHAR(1000),
+  `ttl` INT NOT NULL,
+  UNIQUE KEY `prevent_multiple_sessions` (user_id)
+);
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
