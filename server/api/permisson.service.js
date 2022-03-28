@@ -13,10 +13,8 @@ const hasUserPermission = (currentUid, uid) => {
                 if (result.length < 0) {
                     resolve(false);
                 } else if (result[0].role !== undefined && result[0].role > 0) {
-                    console.log("user is admin")
                     resolve(true);
                 } else if (uid === currentUid) {
-                    console.log("user is current user")
                     resolve(true);
                 } else {
                     resolve(false);

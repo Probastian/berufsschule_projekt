@@ -25,11 +25,11 @@ const getAllTopics = async (req, res) => {
 
 const getSubscriptions = async (req, res) => {
     const token = req.body.token;
-    console.log(token)
+    console.log("get subs")
 
     const validSession = await sessionService.verify(token);
     if (validSession > 0) {
-        topicService.getSubscriptions(validSession, (err, results) => {
+        topicService.getSubscriptions({uid: validSession}, (err, results) => {
             if (err) {
                 return res.status(200).json({
                     success: 0,
@@ -61,6 +61,7 @@ const getTopicById = async (req, res) => {
     const validSession = await sessionService.verify(token);
     if (validSession > 0) {
         const id = parseInt(req.params.id);
+        console.log(id)
 
         topicService.getById(id, (err, result) => {
             if (err) {
@@ -124,11 +125,17 @@ const subscribe = async (req, res) => {
         topicService.subscribe({
             uid: validSession, 
             tid: req.body.tid
-        }, (err, result) => {
+        }, (err) => {
             if (err) {
-                return res.status(200).json({
+                if (err.code === "ER_DUP_ENTRY") {
+                    return res.status(200).json({
+                        success: 0,
+                        message: err.sqlMessage
+                    });
+                }
+                return res.status(500).json({
                     success: 0,
-                    message: "Error occured."
+                    message: "Database connection error occured."
                 });
             }
 
@@ -152,11 +159,17 @@ const unsubscribe = async (req, res) => {
         topicService.unsubscribe({
             uid: validSession, 
             tid: req.body.tid
-        }, (err, result) => {
+        }, (err) => {
             if (err) {
-                return res.status(200).json({
+                if (err.code === "ER_DUP_ENTRY") {
+                    return res.status(200).json({
+                        success: 0,
+                        message: err.sqlMessage
+                    });
+                }
+                return res.status(500).json({
                     success: 0,
-                    message: "Error occured."
+                    message: "Database connection error occured."
                 });
             }
 

@@ -48,10 +48,10 @@ const getAll = (callBack) => {
     )
 }
 
-const getById = (id, callBack) => {
+const getById = (uid, callBack) => {
     mysql.query(
         `SELECT * FROM topic where id=?`,
-        [id],
+        [uid],
         (error, results) => {
             if (error) {
                 return callBack(error);
@@ -61,10 +61,10 @@ const getById = (id, callBack) => {
     )
 }
 
-const getSubscriptions = (uid, callBack) => {
+const getSubscriptions = (data, callBack) => {
     mysql.query (
         `SELECT * from topic t left join topic_member m on t.id=m.tid where m.uid=?`,
-        [uid],
+        [data.uid],
         (error, results) => {
             if (error) {
                 return callBack(error);
@@ -75,16 +75,14 @@ const getSubscriptions = (uid, callBack) => {
 }
 
 const subscribe = (data, callBack) => {
-    console.log("IN sub")
     mysql.query(
         `INSERT INTO topic_member() values (?, ?)`,
         [data.uid, data.tid],
-        (error, result) => {
-            console.log(error)
+        (error) => {
             if (error) {
                 return callBack(error);
             }
-            return callBack(null, result);
+            return callBack(null);
         }
     )
 }
@@ -97,7 +95,7 @@ const unsubscribe = (data, callBack) => {
             if (error) {
                 return callBack(error);
             }
-            return callBack(null, result);
+            return callBack(null);
         }
     )
 }

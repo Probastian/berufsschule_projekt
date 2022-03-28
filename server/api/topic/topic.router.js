@@ -3,7 +3,7 @@ const router = require("express").Router();
 const { getAllTopics, getTopicById, createTopic, updateTopic, getSubscriptions, subscribe, unsubscribe } = require("./topic.controller");
 
 router.get('/all', getAllTopics);
-router.get('/:id', getTopicById);
+router.get('/id/:id', getTopicById);
 router.get('/subs', getSubscriptions)
 
 router.post("/create", createTopic);

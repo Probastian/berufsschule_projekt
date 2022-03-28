@@ -110,8 +110,6 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const token = req.body.token;
     const uid = req.body.uid;
-    console.log(uid)
-    console.log(typeof uid)
 
     const sessionUID = await sessionService.verify(token);
     const isAllowed = sessionUID > 0 ? await permissionService.hasUserPermission(sessionUID, uid) : false;
