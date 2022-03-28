@@ -5,11 +5,11 @@ const create = (data, callBack) => {
         `INSERT INTO user (username, email, firstname, lastname, password)
                     values (?, ?, ?, ?, ?)`,
         [data.username, data.email, data.firstname, data.lastname, data.password],
-        (error, results) => {
+        (error, result) => {
             if (error) {
                 return callBack(error);
             } 
-            return callBack(null, results);
+            return callBack(null, result);
         }
     )
 }

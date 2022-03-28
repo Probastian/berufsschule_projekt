@@ -26,6 +26,7 @@ const create = (data) => {
 const verify = (token) => {
     return new Promise((resolve) => {
         if (token === undefined || token === "") {
+            console.log("no token")
             resolve(0);
         }
 
@@ -40,6 +41,7 @@ const verify = (token) => {
                 if (results.length > 0 &&
                     results[0].ttl > Math.floor(new Date().getTime() / 1000)) 
                 {
+                    console.log(results[0].user_id)
                     resolve(results[0].user_id);
                 } else {
                     resolve(0);

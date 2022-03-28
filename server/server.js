@@ -7,9 +7,11 @@ const server = express();
 const port = process.env.SERVER_PORT || 3000;
 
 const userRouter = require("./api/user/user.router"); 
+const topicRouter = require('./api/topic/topic.router')
 
 server.use(express.json());
 server.use("/api/user", userRouter);
+server.use("/api/topic", topicRouter);
 
 server.use(cookieParser);
 const ttl = 1000 * 60 * 60 * 8;
