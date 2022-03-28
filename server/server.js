@@ -1,11 +1,25 @@
+require("dotenv").config("./.env");
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
 const express = require('express');
-const app = express();
-const port = 3000;
+const server = express();
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+const port = process.env.SERVER_PORT || 3000;
 
-app.listen(port, () => {
-    console.log("Server is listening to port "+port);
+const userRouter = require("./api/user/user.router"); 
+
+server.use(express.json());
+server.use("/api/user", userRouter);
+
+server.use(cookieParser);
+const ttl = 1000 * 60 * 60 * 8;
+server.use(sessions({
+    secret: process.env.JSON_TOKEN,
+    saveUninitialized:true,
+    cookie: { maxAge: ttl },
+    resave: false
+}));
+
+server.listen(port, () => {
+    console.log("Server is listening to port: " + port);
 });
