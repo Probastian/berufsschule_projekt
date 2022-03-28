@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { BasepageComponent } from './component/basepage/basepage.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot(routes),
     FormsModule,
     HttpClientModule
+    RouterModule.forRoot(routes),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
