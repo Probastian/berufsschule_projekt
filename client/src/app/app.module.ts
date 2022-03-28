@@ -8,6 +8,8 @@ import { TopbarComponent } from './component/topbar/topbar.component';
 import { LoginComponent } from './component/login/login.component';
 import { RouterModule } from '@angular/router';
 import { BasepageComponent } from './component/basepage/basepage.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { BasepageComponent } from './component/basepage/basepage.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
