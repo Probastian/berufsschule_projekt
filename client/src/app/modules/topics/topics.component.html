@@ -1,0 +1,21 @@
+<h1>Topics</h1>
+<div class="topicsContainer">
+  <div class="border accordion accordion-flush" id="accordionFlushLetters">
+    <div *ngFor="let topicKey of topicsMapKeys" class="accordion-item">
+      <h2 class="accordion-header" [attr.id]="'flush-heading-letter-' + topicKey.toLowerCase()">
+        <button class="py-2 accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#flush-letter-' + topicKey.toLowerCase()" aria-expanded="false"
+          [attr.aria-controls]="'flush-letter-' + topicKey.toLowerCase()">
+          {{topicKey}}
+        </button>
+      </h2>
+      <div *ngFor="let topicValue of topicsMap.get(topicKey)" [attr.id]="'flush-letter-' + topicKey.toLowerCase()"
+        class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-heading-letter-' + topicKey.toLowerCase()"
+        data-bs-parent="#accordionFlushLetters">
+        <a class="py-0 accordion-body" [attr.href]="'/topic/'">
+          {{topicValue}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
