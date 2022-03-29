@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const sessionService = require('../session.service');
+const permissionService = require('../permisson.service');
 const topicService = require("./topic.service");
 
 const getAllTopics = async (req, res) => {
@@ -104,15 +105,28 @@ const createTopic = async (req, res) => {
 }
 
 const updateTopic = async (req, res) => {
-    const token = req.body.token;
+    const body = req.body;
 
-    const validSession = await sessionService.verify(token);
-    if (validSession > 0) {
-    
+    console.log(body)
+    const validSession = await sessionService.verify(body.token);
+    const hasPermission = await permissionService.hasTopicPermission(validSession, body.tid);
+    if (hasPermission) {
+        topicService.update(body, (error, result) => {
+            if (error) {
+                return res.status(200).json({
+                    success: 0,
+                    message: "Database connection error occured."
+                });
+            }
+            return res.status(200).json({
+                success: 1,
+                message: "Topic was updated."
+            })
+        });
     } else {
         return res.json({
             success: 0,
-            message: 'Invalid session.' 
+            message: 'Invalid session or permission denied' 
         });
     }
 }

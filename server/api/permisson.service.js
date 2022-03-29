@@ -27,20 +27,21 @@ const hasUserPermission = (currentUid, uid) => {
 const hasTopicPermission = (uid, tid) => {
     return new Promise((resolve) => {
         mysql.query(
-            `SELECT creator from topic where id=?`,
+            `SELECT * from topic where id=?`,
             [tid],
             (result, error) => {
+                console.log(result)
                 if (error) {
                     resolve(false);
                 }
 
-                if (result[0].creator === uid) {
+                if (result !== null && result[0].creator === uid) {
                     resolve(true);
                 }
                 resolve(false);
             }
         )
-    })
+    });
 }
 
-module.exports = { hasUserPermission }
+module.exports = { hasUserPermission, hasTopicPermission }
