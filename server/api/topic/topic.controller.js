@@ -12,12 +12,12 @@ const getAllTopics = async (req, res) => {
         topicService.getAll((err, results) => {
             if (err) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database error occured."
                 });
             }
             return res.status(200).json({
-                success: 1,
+                success: true,
                 data:results
             });
         }); 
@@ -33,24 +33,24 @@ const getSubscriptions = async (req, res) => {
         topicService.getSubscriptions({uid: validSession}, (err, results) => {
             if (err) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database error occured."
                 });
             } else if (!results) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: `No subscriptions found.`
                 });
             }
 
             return res.status(200).json({
-                success: 1,
+                success: true,
                 data:results
             });
         });
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session.' 
         });
     }
@@ -67,24 +67,24 @@ const getTopicById = async (req, res) => {
         topicService.getById(id, (err, result) => {
             if (err) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database error occured."
                 });
             } else if (!result) {
                 return res.json({
-                    success: 0,
+                    success: false,
                     message: `No topic found.`
                 });
             }
 
             return res.status(200).json({
-                success: 1,
+                success: true,
                 data:result
             });
         }); 
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session.' 
         });
     }
@@ -98,7 +98,7 @@ const createTopic = async (req, res) => {
     
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session.' 
         });
     }
@@ -114,18 +114,18 @@ const updateTopic = async (req, res) => {
         topicService.update(body, (error, result) => {
             if (error) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
             return res.status(200).json({
-                success: 1,
+                success: true,
                 message: "Topic was updated."
             })
         });
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session or permission denied' 
         });
     }
@@ -143,23 +143,23 @@ const subscribe = async (req, res) => {
             if (err) {
                 if (err.code === "ER_DUP_ENTRY") {
                     return res.status(200).json({
-                        success: 0,
+                        success: false,
                         message: err.sqlMessage
                     });
                 }
                 return res.status(500).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1
+                success: true
             });
         });
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session.' 
         });
     }
@@ -177,23 +177,23 @@ const unsubscribe = async (req, res) => {
             if (err) {
                 if (err.code === "ER_DUP_ENTRY") {
                     return res.status(200).json({
-                        success: 0,
+                        success: false,
                         message: err.sqlMessage
                     });
                 }
                 return res.status(500).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1
+                success: true
             });
         });
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session.' 
         });
     }

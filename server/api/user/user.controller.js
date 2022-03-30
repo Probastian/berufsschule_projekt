@@ -19,17 +19,17 @@ const createUser = (req, res) => {
         if (err) {
             if (err.code === "ER_DUP_ENTRY") {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: err.sqlMessage
                 });
             }
             return res.status(500).json({
-                success: 0,
+                success: false,
                 message: "Database connection error occured."
             });
         }
         return res.status(200).json({
-            success: 1,
+            success: true,
             data: results
         });
     });
@@ -43,7 +43,7 @@ const getUserByUsername = async (req, res) => {
         const username = req.params.name;
         if (username === "") {
             return res.json({
-                success: 0,
+                success: false,
                 message: "Invalid username"
             })
         }
@@ -51,24 +51,24 @@ const getUserByUsername = async (req, res) => {
         userService.getUserByUsername(username, (err, result) => {
             if (err) {
                 return res.json({
-                    success: 0,
+                    success: false,
                     message: "mysql error occured"
                 });;
             } else if (!result) {
                 return res.json({
-                    success: 0,
+                    success: false,
                     message: `No user with the name ${username} was found.`
                 });
             }
             
             return res.json({
-                success: 1,
+                success: true,
                 user: result
             });
         });
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session.' 
         });
     }
@@ -83,25 +83,25 @@ const updateUser = async (req, res) => {
             userService.updateUser(data, (error) => {
                 if (error) {
                     return res.json({
-                        success: 0,
+                        success: false,
                         message: "Error occured when updating user."
                     });
                 } 
 
                 return res.json({
-                    success: 1,
+                    success: true,
                     data: "Data updated successfully!"
                 });   
            });
         } else {
             return res.json({
-                success: 0,
+                success: false,
                 message: "Permisson denied."
             });
         }
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: 'Invalid session.' 
         });
     }
@@ -118,19 +118,19 @@ const deleteUser = async (req, res) => {
         userService.deleteUser(uid, (err) => {
             if (err) {
                 return res.json({
-                    success: 0,
+                    success: false,
                     message: "Error occured when trying to delete the user."
                 });
             }
 
             return res.json({
-                success: 1,
+                success: true,
                 data: "Data deleted successfully!"
             });
         });
     } else {
         return res.json({
-            success: 0,
+            success: false,
             message: "Permisson denied."
         });
     }
@@ -142,7 +142,7 @@ const login = (req, res) => {
         if (err) {
         } else if (!results) {
             return res.json({
-              success: 0,
+              success: false,
               message: "Invalid login credentials"
             });
         }
@@ -165,6 +165,7 @@ const login = (req, res) => {
                         if (success) {
                             sessionService.create({uid: results.id,sessionKey:jsontoken}).then(token => {
                                 return res.json({
+                                    success: true,
                                     token: token,
                                     user: results
                                 });
@@ -173,14 +174,14 @@ const login = (req, res) => {
                     });
                 } else {
                     return res.json({
-                        success: 0,
+                        success: false,
                         message: error
                     }); 
                 }
             });
         } else {
             return res.json({
-                success: 0,
+                success: false,
                 message: "Invalid login credentials."
             });
         }

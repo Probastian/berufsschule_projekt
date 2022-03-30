@@ -22,13 +22,13 @@ const getPostsByTopic = async (req, res) => {
         postService.getPostsByTopic(topicId, (error, results) => {
             if (error || !results) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1,
+                success: true,
                 data: results
             })
         });
@@ -44,13 +44,13 @@ const createPost = async (req, res) => {
         postService.createPost(validSession, req.body, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1,
+                success: true,
                 pid: result.insertId
             })
         });
@@ -65,13 +65,13 @@ const getSubscriptions = async(req, res) => {
         postService.getSubscriptionPosts(validSession, (error, results) => {
             if (error || !results) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1,
+                success: true,
                 data: results
             });
         });
@@ -86,13 +86,13 @@ const deletePost = async (req, res) => {
         postService.deletePost(body.pid, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1
+                success: true
             });
         });
     }
@@ -110,13 +110,13 @@ const createComment = async (req, res) => {
         postService.createComment(validSession, req.body, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1,
+                success: true,
                 cid: result.insertId
             });
         });
@@ -131,13 +131,13 @@ const deleteComment = async (req, res) => {
         postService.deleteComment(req.body.cid, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({
-                    success: 0,
+                    success: false,
                     message: "Database connection error occured."
                 });
             }
 
             return res.status(200).json({
-                success: 1
+                success: true
             })
         })
     }
@@ -155,11 +155,11 @@ const addLabel = async(req, res) => {
         postService.addLabel(body, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({
-                    success: 0
+                    success: false
                 });
             }
             return res.status(200).json({
-                success: 1
+                success: true
             });
         });
     }
@@ -174,11 +174,11 @@ const removeLabel = async(req, res) => {
         postService.removeLabel(body, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({
-                    success: 0
+                    success: false
                 });
             }
             return res.status(200).json({
-                success: 1
+                success: true
             });
         });
     }

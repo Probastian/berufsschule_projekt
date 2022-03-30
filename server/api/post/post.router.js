@@ -18,7 +18,7 @@ router.post('/label/remove', removeLabel);
 
 router.get('*', (req, res) => {
     return res.json({
-        success: 0,
+        success: false,
         message: "This page does not exits."
     });
 });
@@ -26,7 +26,7 @@ router.post('*', (req, res) => {
     console.log(req.url)
 
     return res.json({
-        success: 0,
+        success: false,
         message: "This page does not exits."
     })
 });

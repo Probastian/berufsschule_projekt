@@ -14,13 +14,13 @@ router.post("/delete", deleteUser);
 // Error handling for invalid urls
 router.get('*', (req, res) => {
     return res.json({
-        success: 0,
+        success: false,
         message: "This page does not exits."
     });
 });
 router.post('*', (req, res) => {
     return res.json({
-        success: 0,
+        success: false,
         message: "This page does not exits."
     })
 });
