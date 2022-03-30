@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { from } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -35,6 +36,25 @@ export class TopbarComponent implements OnInit {
             // error loggen
           }
         });
+    }
+  }
+
+  public performSignup(form:NgForm) {
+    if (form.valid) {
+      const values = form.value;
+
+      if (values.password === values.repeat) {
+        this.userService.performSignup(values)
+        .then(response => {
+          if (response) {
+            // modal schließen
+          } else {
+            // error loggen
+          }
+        });
+      } else {
+        // display error
+      }
     }
   }
 }
