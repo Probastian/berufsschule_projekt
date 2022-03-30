@@ -87,4 +87,34 @@ const deleteComment = (pid, callBack) => {
     )
 }
 
-module.exports = { getPostsByTopic, createPost, deletePost, getSubscriptionPosts, createComment, deleteComment }
+/*
+    Label functions
+*/
+
+const addLabel = (data, callBack) => {
+    mysql.query(
+        `INSERT INTO post_label() values (?, ?)`,
+        [data.pid, data.lid],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
+        }
+    )
+}
+
+const removeLabel = (data, callBack) => {
+    mysql.query(
+        `DELETE FROM post_label where pid=? AND lid=?`,
+        [data.pid, data.lid],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
+        }
+    )
+}
+
+module.exports = { getPostsByTopic, createPost, deletePost, getSubscriptionPosts, createComment, deleteComment, addLabel, removeLabel }

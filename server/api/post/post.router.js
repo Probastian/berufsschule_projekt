@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { getPostsByTopic, createPost, deletePost, getSubscriptions, createComment, deleteComment  }  = require('./post.controller');
+const { getPostsByTopic, createPost, deletePost, getSubscriptions, createComment, deleteComment, addLabel, removeLabel }  = require('./post.controller');
 
 // Post
 router.get('/topic', getPostsByTopic);
@@ -11,6 +11,10 @@ router.post('/delete', deletePost);
 // comment
 router.post('/comment/create', createComment);
 router.post('/comment/delete', deleteComment);
+
+//label
+router.post('/label/add', addLabel);
+router.post('/label/remove', removeLabel);
 
 router.get('*', (req, res) => {
     return res.json({

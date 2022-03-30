@@ -143,4 +143,43 @@ const deleteComment = async (req, res) => {
     }
 }
 
-module.exports = { getPostsByTopic, createPost, deletePost, getSubscriptions, createComment, deleteComment }
+/*
+    Label functions
+*/
+const addLabel = async(req, res) => {
+    const body = req.body;
+    
+    const validSession = sessionService.verify(body.token);
+    if (validSession) {
+        postService.addLabel(body, (error, result) => {
+            if (error || !result) {
+                return res.status(200).json({
+                    success: 0
+                });
+            }
+            return res.status(200).json({
+                success: 1
+            });
+        });
+    }
+}
+
+const removeLabel = async(req, res) => {
+    const body = req.body;
+    
+    const validSession = sessionService.verify(body.token);
+    if (validSession) {
+        postService.removeLabel(body, (error, result) => {
+            if (error || !result) {
+                return res.status(200).json({
+                    success: 0
+                });
+            }
+            return res.status(200).json({
+                success: 1
+            });
+        });
+    }
+}
+
+module.exports = { getPostsByTopic, createPost, deletePost, getSubscriptions, createComment, deleteComment, addLabel, removeLabel }
