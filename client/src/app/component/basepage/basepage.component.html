@@ -2,8 +2,9 @@
 <!-- <button class="fixed-bottom-right">Back to top</button> -->
 <button
         type="button"
-        class="btn btn-primary btn-floating fixed-bottom-right"
+        class="btn btn-primary shadow-lg fixed-bottom-right"
         id="btn-back-to-top"
+        (click)="scrollToTop()"
         >
         <span class="text-small-caps">Back to top</span>
         <fa-icon class="ms-2" [icon]="fa.faArrowUp"></fa-icon>

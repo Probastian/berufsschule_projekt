@@ -1,17 +1,9 @@
-<nav
-  class="navbar navbar-expand-lg navbar-light bg-yarac-very-light border-bottom-yarac-primary"
->
+<nav class="navbar navbar-expand-lg navbar-light yarac-navbar bg-yarac-very-light border-bottom-yarac-primary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Y.A.R.A.C.</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <div class="vr me-1"></div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -20,20 +12,102 @@
           <a class="nav-link" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Topics</a>
+          <a class="nav-link" href="/topics">Topics</a>
         </li>
       </ul>
       <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-      <div class="vr" style="background-color: var(--color-gray-300)"></div>
-      <button class="btn btn-outline-success">Log in</button>
+      <div class="vr mx-1"></div>
+      <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalLogin">
+        Login
+      </button>
+      <!-- Login-Modal -->
+      <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <form id="form-login" #login="ngForm">
+              <div class="modal-header">
+                <h5 class="modal-title">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" ngModel class="form-control" required="required" name="username">
+                </div>
+                <div class="py-1"></div>
+                <div class="form-group">
+                  <div class="clearfix">
+                    <label>Password</label>
+                  </div>
+                  <input type="password" ngModel class="form-control" required="required" name="password">
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegister">
+                  Register
+                </button>
+                <input type="submit" class="btn btn-primary" value="Login">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Register-Modal -->
+      <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <form id="form-register" #register="ngForm">
+            <div class="modal-header">
+              <h5 class="modal-title">Register</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" ngModel class="form-control" required="required" name="username">
+              </div>
+              <div class="py-1"></div>
+              <div class="form-group">
+                <label>E-Mail</label>
+                <input type="text" ngModel class="form-control" required="required" name="mail">
+              </div>
+              <hr class="my-3"/>
+              <div class="form-group">
+                <div class="clearfix">
+                  <label>Firstname</label>
+                </div>
+                <input type="text" ngModel class="form-control" required="required" name="firstname">
+              </div>
+              <div class="py-1"></div>
+              <div class="form-group">
+                <label>Surname</label>
+                <input type="text" ngModel class="form-control" required="required" name="surname">
+              </div>
+              <hr class="my-3"/>
+              <div class="form-group">
+                <div class="clearfix">
+                  <label>Password</label>
+                </div>
+                <input type="password" ngModel class="form-control" required="required" name="password">
+              </div>
+              <div class="py-1"></div>
+              <div class="form-group">
+                <div class="clearfix">
+                  <label>Repeat Password</label>
+                </div>
+                <input type="password" ngModel class="form-control" required="required" name="repeat">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

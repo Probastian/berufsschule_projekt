@@ -11,6 +11,7 @@ import { BasepageComponent } from './component/basepage/basepage.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TopicsModule } from './modules/topics/topics.module';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
     RouterModule.forRoot(routes),
-    FontAwesomeModule
+    FontAwesomeModule,
+    TopicsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
