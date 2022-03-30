@@ -149,8 +149,9 @@ const deleteComment = async (req, res) => {
 const addLabel = async(req, res) => {
     const body = req.body;
     
-    const validSession = sessionService.verify(body.token);
-    if (validSession) {
+    const validSession = await sessionService.verify(body.token);
+    const hasPermisson = permissionService.hasPostPermission(body.pid, validSession);
+    if (hasPermisson) {
         postService.addLabel(body, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({
@@ -167,8 +168,9 @@ const addLabel = async(req, res) => {
 const removeLabel = async(req, res) => {
     const body = req.body;
     
-    const validSession = sessionService.verify(body.token);
-    if (validSession) {
+    const validSession = await sessionService.verify(body.token);
+    const hasPermisson = permissionService.hasPostPermission(body.pid, validSession);
+    if (hasPermisson) {
         postService.removeLabel(body, (error, result) => {
             if (error || !result) {
                 return res.status(200).json({

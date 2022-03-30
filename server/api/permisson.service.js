@@ -1,6 +1,30 @@
 const mysql = require("../config/database");
 
-const hasUserPermission = (currentUid, uid) => {
+const isAdmin = async(uid) => {
+    return new Promise((resolve) => {
+        mysql.query(
+            `SELECT role from user where id=?`,
+            [uid],
+            (error, result) => {
+                if (error || !result) {
+                    resolve(false);
+                }
+
+                if (result[0].role !== undefined && result[0].role > 0) {
+                    resolve(true);
+                }
+                resolve(false);
+            }
+        )
+    })
+}
+
+const hasUserPermission = async (currentUid, uid) => {
+    const admin = await isAdmin(uid);
+    if (admin) {
+        return true;
+    }
+
     return new Promise((resolve) => {
         mysql.query(
             `SELECT role from user where id=?`,
@@ -24,13 +48,17 @@ const hasUserPermission = (currentUid, uid) => {
     });
 }
 
-const hasTopicPermission = (uid, tid) => {
+const hasTopicPermission = async (uid, tid) => {
+    const admin = await isAdmin(uid);
+    if (admin) {
+        return true;
+    }
+
     return new Promise((resolve) => {
         mysql.query(
             `SELECT * from topic where id=?`,
             [tid],
             (result, error) => {
-                console.log(result)
                 if (error) {
                     resolve(false);
                 }
@@ -44,4 +72,29 @@ const hasTopicPermission = (uid, tid) => {
     });
 }
 
-module.exports = { hasUserPermission, hasTopicPermission }
+const hasPostPermission = async (pid, uid) => {
+    const admin = await isAdmin(uid);
+    if (admin) {
+        return true;
+    }
+
+    console.log(pid)
+
+    return new Promise((resolve) => {
+        mysql.query(
+            `SELECT * from post where id=?`,
+            [pid],
+            (result, error) => {
+                if (error) {
+                    resolve(false);
+                }
+
+                if (result !== null && result[0].user_id === uid) {
+                    resolve(true);
+                }
+                resolve(false);            }
+        )
+    });
+}
+
+module.exports = { hasUserPermission, hasTopicPermission, hasPostPermission }
