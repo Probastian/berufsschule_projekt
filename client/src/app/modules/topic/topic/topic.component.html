@@ -4,6 +4,41 @@
   </span>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
+  <button type="button" class="btn btn-primary f-right" data-bs-toggle="modal" data-bs-target="#modal-new-post">
+    New post
+  </button>
+  <!-- New Post-Modal -->
+  <div class="modal fade" id="modal-new-post" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <form id="form-new-post">
+          <!--#newpost="ngForm"-->
+          <div class="modal-header">
+            <h5 class="modal-title">Create new post</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Header</label>
+              <input type="text" ngModel class="form-control" required="required" name="header">
+            </div>
+            <div class="py-1"></div>
+            <div class="form-group">
+              <label>Labels</label>
+              <input type="text" ngModel class="form-control" required="required" name="labels">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea ngModel class="form-control span6" rows="8" required="required" name="description"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <button type="button" class="btn btn-danger f-right" data-bs-toggle="modal" data-bs-target="#modal-delete">
     Delete
   </button>
