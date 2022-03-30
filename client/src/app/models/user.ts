@@ -7,11 +7,11 @@ export class User {
     private _joinDate: Date;
     private _isAdmin: boolean;
 
-    constructor(id:number, username:string, email:string, _firstname:string, lastname:string, joinDate:Date, isAdmin:boolean) {
+    constructor(id:number, username:string, email:string, firstname:string, lastname:string, joinDate:Date, isAdmin:boolean) {
         this._id = id;
         this._username = username;
         this._email = email;
-        this._firstname = _firstname;
+        this._firstname = firstname;
         this._lastname = lastname;
         this._joinDate = joinDate;
         this._isAdmin = isAdmin;
@@ -60,7 +60,7 @@ export class User {
     public set joinDate(value: Date) {
         this._joinDate = value;
     }
-    
+
     public get isAdmin(): boolean {
         return this._isAdmin;
     }
