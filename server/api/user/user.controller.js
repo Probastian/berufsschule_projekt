@@ -89,15 +89,15 @@ const getUserById = (req, res) => {
     if (id < 1) {
         return res.json({
             success: false,
-            message: "Invalid username"
-        })
+            message: "Invalid user id."
+        });
     }
 
     userService.getUserById(id, (error, result) => {
-        if (error) {
+        if (error || result === undefined) {
             return res.json({
                 success: false,
-                message: "Error occured when updating user."
+                message: "Error occured while fetching the userdata."
             });
         } 
 
