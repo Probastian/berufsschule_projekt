@@ -12,13 +12,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TopicsModule } from './modules/topics/topics.module';
+import { UserComponent } from './modules/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopbarComponent,
     LoginComponent,
-    BasepageComponent
+    BasepageComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

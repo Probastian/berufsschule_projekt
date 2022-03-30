@@ -4,6 +4,7 @@ import { FeedComponent } from "./modules/feed/feed/feed.component";
 import { PostComponent } from "./modules/post/post/post.component";
 import { TopicComponent } from "./modules/topic/topic/topic.component";
 import { TopicsComponent } from "./modules/topics/topics.component";
+import { UserComponent } from "./modules/user/user.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
     {
         path: 'topics',
         component: TopicsComponent
+    },
+    {
+        path: 'user', 
+        component: UserComponent
     },
     {
         path: '**',
