@@ -8,8 +8,18 @@ const permissionService = require('../permisson.service');
 const userService = require("./user.service");
 
 const logout = async (req, res) => {
-    const sessionKey = req.token;
-    await sessionService.destroyToken(token);
+    const sessionKey = req.body.token;
+    sessionService.destroyToken(sessionKey)
+        .then(respose => {
+            return res.status(200).json({
+                success: true
+            })
+        }).catch(error => {
+            return res.status(200).json({
+                success: false,
+                message: error
+            })
+        });
 }
 
 const createUser = (req, res) => {

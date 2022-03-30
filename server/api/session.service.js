@@ -51,6 +51,7 @@ const verify = (token) => {
 
 const destroyToken = (token) => {
     return new Promise((resolve, reject) => {
+        console.log(token)
         if (token) {
             mysql.query(
                 `DELETE FROM session where session_key=?`,

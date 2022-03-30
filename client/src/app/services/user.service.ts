@@ -60,4 +60,19 @@ export class UserService {
       }
     });
   }
+
+  public performLogout() {
+    const requestUrl = `${this.baseUrl}logout`
+    const requestBody = {
+      token: localStorage.getItem("token")
+    }
+
+    this.http.post<any>(requestUrl, requestBody).toPromise()
+      .then(response => {
+        console.log(response)
+        if (response.success) {
+          localStorage.clear();
+        }
+      });
+  }
 }

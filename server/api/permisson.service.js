@@ -78,8 +78,6 @@ const hasPostPermission = async (pid, uid) => {
         return true;
     }
 
-    console.log(pid)
-
     return new Promise((resolve) => {
         mysql.query(
             `SELECT * from post where id=?`,
