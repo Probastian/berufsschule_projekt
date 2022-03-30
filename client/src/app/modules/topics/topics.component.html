@@ -9,11 +9,11 @@
           {{topicKey}}
         </button>
       </h2>
-      <div *ngFor="let topicValue of topicsMap.get(topicKey)" [attr.id]="'flush-letter-' + topicKey.toLowerCase()"
+      <div *ngFor="let topic of topicsMap.get(topicKey)" [attr.id]="'flush-letter-' + topicKey.toLowerCase()"
         class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-heading-letter-' + topicKey.toLowerCase()"
         data-bs-parent="#accordionFlushLetters">
-        <a class="py-0 accordion-body" [attr.href]="'/topic/'">
-          {{topicValue}}
+        <a class="py-0 accordion-body" [attr.href]="'/topic/'+topic.id">
+          {{topic.name}}
         </a>
       </div>
     </div>

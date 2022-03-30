@@ -5,23 +5,18 @@ const permissionService = require('../permisson.service');
 const topicService = require("./topic.service");
 
 const getAllTopics = async (req, res) => {
-    const token = req.body.token;
-
-    const validSession = await sessionService.verify(token);
-    if (validSession > 0) {
-        topicService.getAll((err, results) => {
-            if (err) {
-                return res.status(200).json({
-                    success: false,
-                    message: "Database error occured."
-                });
-            }
+    topicService.getAll((err, results) => {
+        if (err) {
             return res.status(200).json({
-                success: true,
-                data:results
+                success: false,
+                message: "Database error occured."
             });
-        }); 
-    }
+        }
+        return res.status(200).json({
+            success: true,
+            data:results
+        });
+    }); 
 } 
 
 const getSubscriptions = async (req, res) => {
