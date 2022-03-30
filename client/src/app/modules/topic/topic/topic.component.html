@@ -25,7 +25,9 @@
             <div class="py-1"></div>
             <div class="form-group">
               <label>Labels</label>
-              <input type="text" ngModel class="form-control" required="required" name="labels">
+              <ul class="labeltag-list form-control">
+                <input #autocomplete class="labeltag-input" type="text" (keyup.enter)="addLabel($event)">
+              </ul>
             </div>
             <div class="form-group">
               <label>Description</label>

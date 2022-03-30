@@ -1,0 +1,35 @@
+@mixin setBgColorAndHover($baseColor)
+    background-color: $baseColor
+    &:hover
+          background-color: darken($baseColor, 15%)
+    
+.labeltag-list
+    display: flex
+    vertical-align: middle
+
+.labeltag-list *
+    display: inline
+    width: fit-content
+    padding: 0.05rem
+    padding-left: 0.35rem
+    padding-right: 0.35rem
+    border-radius: 12px
+    font-size: 0.875em
+    text-align: center
+
+.labeltag-list *:not(:last-child)
+    margin-right: 0.25rem
+
+.labeltag-input
+    width: 100%
+    background-color: rgba(0, 0, 0, 0)
+    border: 0
+    border-radius: 0
+    text-align: left
+
+.labeltag-input:focus
+    outline: none
+
+.labeltag
+    +setBgColorAndHover(#cccccc)
+    user-select: none
