@@ -84,6 +84,30 @@ const getUserByUsername = async (req, res) => {
     }
 }
 
+const getUserById = (req, res) => {
+    const id = parseInt(req.params.id)
+    if (id < 1) {
+        return res.json({
+            success: false,
+            message: "Invalid username"
+        })
+    }
+
+    userService.getUserById(id, (error, result) => {
+        if (error) {
+            return res.json({
+                success: false,
+                message: "Error occured when updating user."
+            });
+        } 
+
+        return res.json({
+            success: true,
+            data: result
+        });   
+    })
+}
+
 const updateUser = async (req, res) => {
     const token = req.body.token;
     const validSession = await sessionService.verify(token);
@@ -198,4 +222,4 @@ const login = (req, res) => {
     });
 }
 
-module.exports = { login, logout, createUser, getUserByUsername, updateUser, deleteUser }
+module.exports = { login, logout, createUser, getUserByUsername, getUserById, updateUser, deleteUser }

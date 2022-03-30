@@ -18,8 +18,8 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'topic',
-        component: TopicComponent
+        path: 'topic/:id',
+        component: TopicComponent,
     },
     {
         path: 'post', 

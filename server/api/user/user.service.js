@@ -27,6 +27,19 @@ const getUserByUsername = (username, callBack) => {
     );
 }
 
+const getUserById = (id, callBack) => {
+    mysql.query(
+        `SELECT * from user where id=?`,
+        [id],
+        (error, result) => {
+            if (error) {
+                return callBack(error)
+            }
+            return callBack(null, result[0])
+        }
+    )
+}
+
 const getUserForLogin = (login, callBack) => {
     mysql.query(
         `SELECT * from user where username=? OR email=?`,
@@ -66,4 +79,4 @@ const deleteUser = (uid, callBack) => {
     );
 }
 
-module.exports = { create, getUserByUsername, getUserForLogin, updateUser, deleteUser }
+module.exports = { create, getUserByUsername, getUserById, getUserForLogin, updateUser, deleteUser }

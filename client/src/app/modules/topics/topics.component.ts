@@ -20,7 +20,7 @@ export class TopicsComponent implements OnInit {
     // this.topicsMapKeys = Array.from(this.topicsMap.keys());
   }
 
-  async ngOnInit(){
+  ngOnInit(){
     this.topicService.loadAllTopics()
       .then(topics => { 
         console.log(topics)

@@ -52,37 +52,25 @@ const getSubscriptions = async (req, res) => {
 }
 
 const getTopicById = async (req, res) => {
-    const token = req.body.token;
+    const id = parseInt(req.params.id);
+    console.log(id)
 
-    const validSession = await sessionService.verify(token);
-    if (validSession > 0) {
-        const id = parseInt(req.params.id);
-        console.log(id)
-
-        topicService.getById(id, (err, result) => {
-            if (err) {
-                return res.status(200).json({
-                    success: false,
-                    message: "Database error occured."
-                });
-            } else if (!result) {
-                return res.json({
-                    success: false,
-                    message: `No topic found.`
-                });
-            }
-
+    topicService.getById(id, (err, result) => {
+    if (err) {
             return res.status(200).json({
-                success: true,
-                data:result
+                success: false,
+                message: "Database error occured."
             });
-        }); 
-    } else {
-        return res.json({
-            success: false,
-            message: 'Invalid session.' 
+        } else if (!result) {
+            return res.json({
+                success: false,
+                message: `No topic found.`
+            });
+        }        return res.status(200).json({
+            success: true,
+            data:result
         });
-    }
+    }); 
 }
 
 const createTopic = async (req, res) => {

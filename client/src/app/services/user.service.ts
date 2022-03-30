@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from "rxjs/operators";
 import { User } from '../models/user';
 
 @Injectable({
@@ -74,5 +75,18 @@ export class UserService {
           localStorage.clear();
         }
       });
+  }
+
+  public getUserById(id:number):Promise<User|undefined> {
+    const requestUrl = `${this.baseUrl}id/${id}`;
+
+    return this.http.get<{success:boolean, data:any}>(requestUrl).pipe(
+      map(response => {
+        if (!response.success) return undefined;
+
+        const data = response.data
+        return new User(data.id, data.username, data.email, data.firstname, data.lastname, data.join_date, data.role === 1)
+      })
+    ).toPromise();
   }
 }

@@ -1,4 +1,9 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Topic } from 'src/app/models/topic';
+import { User } from 'src/app/models/user';
+import { TopicService } from 'src/app/services/topic.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'topic',
@@ -6,6 +11,8 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
   styleUrls: ['./topic.component.sass']
 })
 export class TopicComponent implements OnInit {
+  private _topic:Topic|undefined;
+  private _topicCreator:User|undefined;
   public availableLabels: string[];
 
   @ViewChild('autocomplete')
@@ -14,13 +21,35 @@ export class TopicComponent implements OnInit {
   @ViewChild('label')
   public label: ElementRef | undefined;
 
-  constructor() {
+  constructor(private topicService:TopicService, private userSerivce:UserService, private route:ActivatedRoute) {
     this.availableLabels = this.getAvailableLabels();
   }
 
-  ngOnInit(): void { }
+  async ngOnInit() { 
+    this.route.params.subscribe(params => {
+      const topicId = parseInt(params.id);
+      if (topicId) {
+        this.topicService.loadById(topicId)
+          .then(async topic => {
+            if (topic !== undefined) {
+              this._topic = topic;
+              
+              this._topicCreator = await this.userSerivce.getUserById(topic.id)
+            }
+          });
+      }
+    })
+  }
 
   ngAfterViewInit(): void { }
+
+  public get topic():Topic|undefined {
+    return this._topic;
+  }
+
+  public get topicCreator():User|undefined {
+    return this._topicCreator;
+  }
 
   getAvailableLabels(): string[] {
     return [
