@@ -1,5 +1,8 @@
-<h1>Welcome back, USERNAME!</h1>
-<p class="text-muted">It's nice seeing you here today!</p>
+<h1 *ngIf="displayWelcomeBack(); else userLoggedIn"> Welcome to Y.A.R.A.C </h1>
+<ng-template #userLoggedIn>
+  <h1>{{"Welcome back, " + username}}</h1>
+  <p class="text-muted">It's nice seeing you here today!</p>
+</ng-template>
 <div class="posts-container card category-card no-yarac">
   <div class="card-header">
     <button
@@ -16,16 +19,16 @@
   <div class="card-body collapse" id="posts-body">
     <!-- Example post -->
     <div class="row" id="row-posts">
-      <div class="col-md-3 mb-2" id="card-post">
+      <div class="col-md-3 mb-2" id="card-post" *ngFor="let post of posts">
         <div class="card">
-          <div class="card-header">Title</div>
+          <div class="card-header">{{post.name}}</div>
           <div class="card-body p-2 pt-1">
             <small>Topic</small>
-            <p class="card-text">Text</p>
+            <p class="card-text">{{post.content}}</p>
           </div>
-          <div class="card-footer text-muted">
+          <div class="card-footer text-muted" *ngIf="post.commentCount > 0">
             <span class="display-flex">
-              <p class="my-0 small">2</p>
+              <p class="my-0 small">{{post.commentCount}}</p>
               <div class="mx-0"></div>
               <p class="my-0 small">💬</p>
             </span>

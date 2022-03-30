@@ -52,8 +52,12 @@ const createPost = async (req, res) => {
 const getSubscriptions = async(req, res) => {
     const token = req.body.token;
 
+    console.log(token)
+
     const validSession = await sessionService.verify(token);
-    if (validSession > 0) {
+    console.log(validSession)
+
+    if (validSession) {
         postService.getSubscriptionPosts(validSession, (error, results) => {
             if (error || !results) {
                 return res.status(200).json({
@@ -66,6 +70,11 @@ const getSubscriptions = async(req, res) => {
                 success: true,
                 data: results
             });
+        });
+    } else {
+        return res.status(200).json({
+            success: false,
+            message: "Invalid Session."
         });
     }
 }

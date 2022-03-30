@@ -15,6 +15,7 @@ import { PostComponent } from './modules/post/post/post.component';
 import { TopicsModule } from './modules/topics/topics.module';
 import { UserComponent } from './modules/user/user.component';
 import { TopicModule } from './modules/topic/topic.module';
+import { FeedModule } from './modules/feed/feed.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TopicModule } from './modules/topic/topic.module';
     RouterModule.forRoot(routes),
     FontAwesomeModule,
     TopicsModule,
-    TopicModule
+    TopicModule,
+    FeedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

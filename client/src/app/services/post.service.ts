@@ -19,7 +19,20 @@ export class PostService {
   }
 
   public loadSubscriptionFeed() {
+    const requestUrl = `${this.baseUrl}subs`;
+    const requestBody = {
+      token: localStorage.getItem("token")
+    }
+    
+    return this.http.post<{success:boolean, data:any[]}>(requestUrl, requestBody).pipe(
+      map(response => {
+        if (!response.success) return [];
 
+        return response.data.map(post => {
+          return new Post(post.id, post.user_id, post.name, post.content, post.commentCount, new Date(post.creationDate));  
+        });
+      })
+    ).toPromise();
   }
 
   public loadPostsByTopic(id:number):Promise<Post[]> {

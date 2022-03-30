@@ -21,7 +21,6 @@ export class TopbarComponent implements OnInit {
   }
 
   public displayLogin():boolean {
-    this.currentUser;
     if (this._currentUser === null || this._currentUser === undefined) {
       return true;
     } 
