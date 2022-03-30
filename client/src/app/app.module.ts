@@ -14,6 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PostComponent } from './modules/post/post/post.component';
 import { TopicsModule } from './modules/topics/topics.module';
 import { UserComponent } from './modules/user/user.component';
+import { TopicModule } from './modules/topic/topic.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UserComponent } from './modules/user/user.component';
     HttpClientModule,
     RouterModule.forRoot(routes),
     FontAwesomeModule,
-    TopicsModule
+    TopicsModule,
+    TopicModule
   ],
   providers: [],
   bootstrap: [AppComponent]

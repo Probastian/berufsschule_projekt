@@ -70,7 +70,6 @@ export class UserService {
 
     this.http.post<any>(requestUrl, requestBody).toPromise()
       .then(response => {
-        console.log(response)
         if (response.success) {
           localStorage.clear();
         }
@@ -80,14 +79,9 @@ export class UserService {
   public getUserById(id:number):Promise<User|undefined> {
     const requestUrl = `${this.baseUrl}id/${id}`;
 
-    console.log(requestUrl)
-
     return this.http.get<{success:boolean, data:any}>(requestUrl).pipe(
       map(response => {
-        console.log(response)
         if (!response.success) return undefined;
-
-        console.log(response.data)
 
         const data = response.data
         return new User(data.id, data.username, data.email, data.firstname, data.lastname, data.join_date, data.role === 1)

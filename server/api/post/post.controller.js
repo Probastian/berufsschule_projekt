@@ -11,28 +11,20 @@ const res = require("express/lib/response");
 
 const getPostsByTopic = async (req, res) => {
     // Holt sich alle Posts
-    const token = req.body.token;
-    const topicId = parseInt(req.body.tid);
+    const topicId = parseInt(req.params.id);
 
-    console.log(token)
-    console.log(topicId)
-
-    const validSession = await sessionService.verify(token);
-    if (validSession > 0) {
-        postService.getPostsByTopic(topicId, (error, results) => {
-            if (error || !results) {
-                return res.status(200).json({
-                    success: false,
-                    message: "Database connection error occured."
-                });
-            }
-
+    postService.getPostsByTopic(topicId, (error, results) => {
+        if (error || !results) {
             return res.status(200).json({
-                success: true,
-                data: results
-            })
-        });
-    }
+                success: false,
+                message: "Database connection error occured."
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: results
+        })
+    }); 
 }
 
 const createPost = async (req, res) => {

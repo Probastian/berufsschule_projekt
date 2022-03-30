@@ -1,7 +1,9 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Post } from 'src/app/models/post';
 import { Topic } from 'src/app/models/topic';
 import { User } from 'src/app/models/user';
+import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,9 +12,12 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './topic.component.html',
   styleUrls: ['./topic.component.sass']
 })
-export class TopicComponent implements OnInit {
+export class TopicComponent implements OnInit, AfterViewInit {
+  private id:number = -1
   private _topic:Topic|undefined;
   private _topicCreator:User|undefined;
+  private _posts:Post[] = [];
+
   public availableLabels: string[];
 
   @ViewChild('autocomplete')
@@ -21,11 +26,13 @@ export class TopicComponent implements OnInit {
   @ViewChild('label')
   public label: ElementRef | undefined;
 
-  constructor(private topicService:TopicService, private userSerivce:UserService, private route:ActivatedRoute) {
+  constructor(private topicService:TopicService, private userSerivce:UserService, 
+              private postService:PostService, private route:ActivatedRoute) {
+    this.route.params.subscribe(params => this.id = parseInt(params.id));
     this.availableLabels = this.getAvailableLabels();
   }
 
-  async ngOnInit() { 
+  /*
     this.route.params.subscribe(params => {
       const topicId = parseInt(params.id);
       if (topicId) {
@@ -33,12 +40,19 @@ export class TopicComponent implements OnInit {
           .then(async topic => {
             if (topic !== undefined) {
               this._topic = topic;
-              
-              this._topicCreator = await this.userSerivce.getUserById(topic.id)
             }
           });
       }
     })
+  */
+
+  async ngOnInit() { 
+    this._topic = await this.topicService.loadById(this.id);
+    
+    if (this.topic !== undefined) {
+      this._topicCreator = await this.userSerivce.getUserById(this.topic.creator)
+      this._posts = await this.postService.loadPostsByTopic(this.topic.id);
+    }
   }
 
   ngAfterViewInit(): void { }
@@ -49,6 +63,10 @@ export class TopicComponent implements OnInit {
 
   public get topicCreator():User|undefined {
     return this._topicCreator;
+  }
+
+  public get posts():Post[] {
+    return this._posts;
   }
 
   getAvailableLabels(): string[] {

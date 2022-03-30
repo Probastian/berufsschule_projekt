@@ -84,12 +84,12 @@
   <div class="card-body collapse" id="posts-body">
     <!-- Example post -->
     <div class="row" id="row-posts">
-      <div class="col-md-3 mb-2" id="card-post">
+      <div *ngFor="let post of this.posts" class="col-md-3 mb-2" id="card-post">
         <div class="card">
-          <div class="card-header">Title</div>
+          <div class="card-header">{{post.name}}</div>
           <div class="card-body">
             <h6>Topic</h6>
-            <p class="card-text">Text</p>
+            <p class="card-text">{{post.content}}</p>
           </div>
           <div class="card-footer text-muted">
             <span class="display-flex">

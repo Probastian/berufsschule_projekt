@@ -3,7 +3,7 @@ const router = require("express").Router();
 const { getPostsByTopic, createPost, deletePost, getSubscriptions, createComment, deleteComment, addLabel, removeLabel }  = require('./post.controller');
 
 // Post
-router.get('/topic', getPostsByTopic);
+router.get('/topic/:id', getPostsByTopic);
 router.get('/subs', getSubscriptions);
 router.post('/create', createPost);
 router.post('/delete', deletePost);
