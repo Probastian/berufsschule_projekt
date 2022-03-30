@@ -6,17 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post.component.sass']
 })
 export class PostComponent implements OnInit {
+  public labelsList:Array<string>;
 
-  constructor() { }
+  constructor() {
+    this.labelsList = Array.from(this.getLabels())
+  }
 
   ngOnInit(): void {
   }
 
   getLabels():Array<string> {
-    return Array.from([
+    return [
       "label1",
       "test",
       "kack"
-    ])
+    ]
+  }
+
+  log(obj:any):any {
+    console.log(typeof obj)
+    console.log(obj)
+    return obj
   }
 }

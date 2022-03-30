@@ -43,6 +43,7 @@ export class TopicComponent implements OnInit {
     //<li class="labeltag" (click)="removeLabel($event)">Label</li>
     let newElem = document.createElement("li")
     newElem.classList.add("labeltag")
+    newElem.classList.add("labeltag-interactive")
     newElem.innerHTML = element.value;
     element.parentElement.insertBefore(newElem, element);
     element.value = "";
