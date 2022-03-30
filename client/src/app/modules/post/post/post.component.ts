@@ -12,4 +12,11 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getLabels():Array<string> {
+    return Array.from([
+      "label1",
+      "test",
+      "kack"
+    ])
+  }
 }
