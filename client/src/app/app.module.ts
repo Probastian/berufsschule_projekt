@@ -11,6 +11,7 @@ import { BasepageComponent } from './component/basepage/basepage.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PostComponent } from './modules/post/post/post.component';
 import { TopicsModule } from './modules/topics/topics.module';
 import { UserComponent } from './modules/user/user.component';
 
@@ -20,7 +21,8 @@ import { UserComponent } from './modules/user/user.component';
     TopbarComponent,
     LoginComponent,
     BasepageComponent,
-    UserComponent
+    UserComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
