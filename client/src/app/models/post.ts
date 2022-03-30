@@ -4,12 +4,14 @@ export class Post {
     private _name:string;
     private _content:string;
     private _creationDate:Date;
+    private _commentCount: number;
 
-    constructor(id:number, userId:number, name:string, content:string, creationDate:Date) {
+    constructor(id:number, userId:number, name:string, content:string, commentCount:number, creationDate:Date) {
         this._id = id;
         this._userId = userId;
         this._name = name;
         this._content  = content;
+        this._commentCount = commentCount;
         this._creationDate = creationDate;
     }
 
@@ -37,7 +39,15 @@ export class Post {
         this._content = value;
     }
 
+    public get commentCount(): number {
+        return this._commentCount;
+    }
+
+    public set commentCount(value: number) {
+        this._commentCount = value;
+    }
+
     public get creationDate():Date {
-        return this.creationDate;
+        return this._creationDate;
     }
 }

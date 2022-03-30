@@ -91,9 +91,9 @@
             <h6>Topic</h6>
             <p class="card-text">{{post.content}}</p>
           </div>
-          <div class="card-footer text-muted">
+          <div class="card-footer text-muted" *ngIf="post.commentCount > 0">
             <span class="display-flex">
-              <p class="my-0 small">2</p>
+              <p class="my-0 small">{{post.commentCount}}</p>
               <div class="mx-0"></div>
               <p class="my-0 small">💬</p>
             </span>

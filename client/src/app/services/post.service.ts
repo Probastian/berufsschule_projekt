@@ -29,8 +29,8 @@ export class PostService {
       map(response => {
         if (!response.success) return [];
 
-        return response.data.map(topic => {
-          return new Post(topic.id, topic.user_id, topic.name, topic.content, new Date(topic.creationDate));  
+        return response.data.map(post => {
+          return new Post(post.id, post.user_id, post.name, post.content, post.commentCount, new Date(post.creationDate));  
         });
       })
     ).toPromise()

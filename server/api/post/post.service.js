@@ -5,11 +5,11 @@ const mysql = require("../../config/database");
 */
 
 // Commencount subquery
-// select count(id) as commentCount from comment where post_id=1
+// 
 
 const getPostsByTopic = (tid, callBack) => {
     mysql.query(
-        `select * from post p where p.topic_id=? order by p.creation_date desc`,
+        `select *, (select count(id) from comment where post_id=p.id) as commentCount from post p where p.topic_id=? order by p.creation_date desc`,
         [tid],
         (error, result) => {
             if (error) {
