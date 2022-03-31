@@ -45,9 +45,9 @@
   </div>
 </div>
 <div class="my-4"></div>
-<h3>Comments</h3>
+<h3>Comments ({{comments.length}})</h3>
 <ul class="comments-list list-group">
-  <li class="list-group-item comment">
+  <li class="list-group-item comment" *ngFor="let comment of comments">
     <div class="d-flex w-100 align-items-center justify-content-between">
       <strong class="mb-1">List group item heading</strong>
       <div class="display-flex">
@@ -82,37 +82,7 @@
       </div>
     </div>
     <div class="col-10 mb-1 small">
-      Some placeholder content in a paragraph below the heading and date.
-    </div>
-  </li>
-  <li class="list-group-item comment">
-    <div class="d-flex w-100 align-items-center justify-content-between">
-      <strong class="mb-1">List group item heading</strong>
-      <div class="display-flex">
-        <small class="text-muted">Wed</small>
-        <div class="mx-1"></div>
-      </div>
-    </div>
-    <div class="col-10 mb-1 small">
-      Some placeholder content in a paragraph below the heading and date.
-    </div>
-  </li>
-  <li class="list-group-item comment">
-    <div class="d-flex w-100 align-items-center justify-content-between">
-      <strong class="mb-1">List group item heading</strong>
-      <small class="text-muted">Wed</small>
-    </div>
-    <div class="col-10 mb-1 small">
-      Some placeholder content in a paragraph below the heading and date.
-    </div>
-  </li>
-  <li class="list-group-item comment">
-    <div class="d-flex w-100 align-items-center justify-content-between">
-      <strong class="mb-1">List group item heading</strong>
-      <small class="text-muted">Wed</small>
-    </div>
-    <div class="col-10 mb-1 small">
-      Some placeholder content in a paragraph below the heading and date.
+      {{comment.text}}
     </div>
   </li>
 </ul>

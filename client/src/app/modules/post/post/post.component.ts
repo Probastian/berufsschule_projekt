@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { Topic } from 'src/app/models/topic';
+import { Comment } from 'src/app/models/comment';
 import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 
@@ -21,17 +22,16 @@ export class PostComponent implements OnInit {
   constructor(private postService:PostService, private topicService:TopicService, private route:ActivatedRoute) {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
 
-    this.postService.loadPostById(this.id).subscribe(post => this._post = post );
-
     this.labelsList = Array.from(this.getLabels())
   }
 
   async ngOnInit():Promise<void> {
-    console.log(this._post)
-    if(this._post !== undefined) {
-      this._topic = await this.topicService.loadById(this._post.topicId);
-      console.log(this._topic)
-      this._comments = [];
+    const post = await this.postService.loadPostById(this.id);
+
+    if(post !== undefined) {
+      this._post = post;
+      this._topic = await this.topicService.loadById(post.topicId);
+      this._comments = await this.postService.loadComments(post.id);
     }
   }
 
@@ -41,6 +41,10 @@ export class PostComponent implements OnInit {
 
   public get topic():Topic|undefined {
     return this._topic;
+  }
+
+  public get comments():Comment[] {
+    return this._comments;
   }
 
   getLabels():Array<string> {

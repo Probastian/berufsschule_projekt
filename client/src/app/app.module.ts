@@ -25,8 +25,7 @@ import { Page404Component } from './component/page404/page404.component';
     LoginComponent,
     BasepageComponent,
     UserComponent,
-    PostComponent,
-    Page404Component
+    Page404Component,
     UserComponent
   ],
   imports: [

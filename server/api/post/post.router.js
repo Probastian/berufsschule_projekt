@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, createComment, deleteComment, addLabel, removeLabel } = require('./post.controller');
+const { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getComments, createComment, deleteComment, addLabel, removeLabel } = require('./post.controller');
 
 // Post
 router.get('/topic/:id', getPostsByTopic);
@@ -10,6 +10,7 @@ router.post('/create', createPost);
 router.post('/delete', deletePost);
 
 // comment
+router.get('/comment/id/:id', getComments);
 router.post('/comment/create', createComment);
 router.post('/comment/delete', deleteComment);
 
