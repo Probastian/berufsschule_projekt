@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Post } from '../models/post';
 import { map } from "rxjs/operators";
-import { Observable } from 'rxjs';
+import { Post } from '../models/post';
 import { Comment } from '../models/comment';
+import { Label } from '../models/label';
 
 @Injectable({
   providedIn: 'root'
@@ -74,11 +74,14 @@ export class PostService {
     
     return this.http.post<{success:boolean, pid:number}>(requestUrl, requestBody).pipe(
       map(response => {
-        console.log(response)
         if (!response.success) return undefined;
 
-        console.log(values)
-        return new Post(response.pid, uid, tid, values.header, values.description, 0, new Date());
+        const pid = response.pid;
+        for (let lid of values.labels) {
+          this.addLabel(parseInt(lid), pid).then(() => {});
+        }
+
+        return new Post(pid, uid, tid, values.header, values.description, 0, new Date());
       })
     ).toPromise()
   }
@@ -89,11 +92,9 @@ export class PostService {
 
   public async loadComments(pid:number):Promise<Comment[]> {
     const requestUrl = `${this.baseUrl}comment/id/${pid}`;
-    console.log(requestUrl)
 
     return this.http.get<{success:boolean, data:any[]}>(requestUrl).pipe(
       map(response => {
-        console.log(response)
         if (!response.success) return [];
 
         return response.data.map(comment => {
@@ -112,7 +113,6 @@ export class PostService {
 
     return this.http.post<{success:boolean}>(requestUrl, requestBody).pipe(
       map(response => {
-        console.log(response)
         if (response) {
           return response.success;
         }
@@ -129,5 +129,32 @@ export class PostService {
       uid: uid,
 	    text: text
     }
+  }
+
+  public async loadLabels() {
+    const requestUrl = `${this.baseUrl}labels`
+
+    return this.http.get<{success:boolean, data:Label[]}>(requestUrl).pipe(
+      map(response => {
+        if (!response.success) return [];
+
+        return response.data;
+      })
+    ).toPromise();
+  }
+
+  public async addLabel(id:number, pid:number):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}label/add`;
+    const requestBody = {
+      token: localStorage.getItem('token'),
+      pid: pid,
+      lid: id
+    }
+
+    return this.http.post<{success:boolean}>(requestUrl, requestBody).pipe(
+      map(response => {
+        return response.success
+      })
+    ).toPromise();
   }
 }

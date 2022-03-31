@@ -32,12 +32,15 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/selectize/dist/css/selectize.css",
+              "node_modules/ng-selectize/assets/selectize.semantic.css",
               "src/styles.sass"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/@popperjs/core/dist/umd/popper.min.js"
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/ng-selectize/assets/selectize.standalone.js" 
             ]
           },
           "configurations": {
@@ -105,11 +108,14 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/selectize/dist/css/selectize.css",
+              "node_modules/ng-selectize/assets/selectize.semantic.css",
               "src/styles.sass"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js"
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/ng-selectize/assets/selectize.standalone.js" 
             ]
           }
         }

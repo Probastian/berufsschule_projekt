@@ -191,6 +191,21 @@ const deleteComment = async (req, res) => {
 /*
     Label functions
 */
+
+const getAllLabels = (req, res) => {
+    postService.getAllLabels((error, results) => {
+        if (error || !results) {
+            return res.status(200).json({
+                success: false
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: results
+        });
+    });
+}
+
 const addLabel = async(req, res) => {
     const body = req.body;
     
@@ -229,4 +244,4 @@ const removeLabel = async(req, res) => {
     }
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getComments, createComment, deleteComment, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getComments, createComment, deleteComment, getAllLabels, addLabel, removeLabel }
