@@ -55,6 +55,7 @@ export class TopbarComponent implements OnInit {
       if (values.password === values.repeat) {
         this.userService.performSignup(values)
         .then(response => {
+          console.log(response)
           if (response) {
             // modal schließen
             window.location.reload();
@@ -70,6 +71,6 @@ export class TopbarComponent implements OnInit {
 
   public performLogout() {
     this.userService.performLogout();
-    window.location.reload();
+    setTimeout(() => {window.location.reload()}, 200);
   }
 }

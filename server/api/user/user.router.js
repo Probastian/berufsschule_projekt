@@ -10,7 +10,7 @@ router.get("/name/:name", getUserByUsername);
 router.get("/id/:id", getUserById);
 router.post("/create", createUser);
 router.post("/update", updateUser);
-router.post("/delete", deleteUser);
+router.delete("/delete", deleteUser);
 
 
 // Error handling for invalid urls

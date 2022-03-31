@@ -80,14 +80,16 @@ const updateUser = (data, callBack) => {
 }
 
 const deleteUser = (uid, callBack) => {
+    let queries = "DELETE FROM comment WHERE user_id=?;" 
+    queries += "DELETE FROM post where user_id=?;"
+    queries += "DELETE FROM topic where creator=?;"
     mysql.query(
         `DELETE FROM user WHERE id=?`,
         [uid],
         (error) => {
             if (error) {
-                return callBack(error);
-            } 
-            return callBack(null);
+                return callBack(error)
+            }
         }
     );
 }

@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-const { append } = require("express/lib/response");
 const { sign } = require("jsonwebtoken");
 
 const sessionService = require('../session.service');
@@ -9,17 +8,19 @@ const userService = require("./user.service");
 
 const logout = async (req, res) => {
     const sessionKey = req.body.token;
-    sessionService.destroyToken(sessionKey)
-        .then(respose => {
-            return res.status(200).json({
-                success: true
-            })
-        }).catch(error => {
-            return res.status(200).json({
-                success: false,
-                message: error
-            })
-        });
+    const success = await sessionService.destroyToken(sessionKey);
+
+    if (success && typeof success === "boolean") {
+        return res.status(200).json({
+            success: true,
+            message: "logged out successfully."
+        })
+    } else {
+        return res.status(200).json({
+            success: false,
+            message: "No results found."
+        })
+    }
 }
 
 const createUser = (req, res) => {
@@ -163,7 +164,7 @@ const deleteUser = async (req, res) => {
 
     const sessionUID = await sessionService.verify(token);
     const isAllowed = sessionUID > 0 ? await permissionService.hasUserPermission(sessionUID, uid) : false;
-
+    
     if (isAllowed) {
         userService.deleteUser(uid, (err) => {
             if (err) {

@@ -9,14 +9,13 @@ import { User } from '../models/user';
 })
 export class UserService {
   private baseUrl = "api/user/"
+  private _allUsers: User[] = [];
 
-  private allUsers: User[] = [];
-
-  constructor(private http:HttpClient) { 
-    this.getAllUsers().subscribe(users => this.allUsers = users);
+  constructor(private http:HttpClient) {
+    this.loadAllUsers().then(users => this._allUsers = users);
   }
 
-  private getAllUsers():Observable<User[]> {
+  public loadAllUsers():Promise<User[]> {
     const requestUrl = `${this.baseUrl}all`;
 
     return this.http.get<{success:boolean, data:any[]}>(requestUrl).pipe(
@@ -27,7 +26,7 @@ export class UserService {
           return new User(user.id, user.username, user.email, user.firstname, user.lastname, user.join_date, user.role === 1)
         });
       })
-    )
+    ).toPromise();
   }
 
   public getCurrentUser():User|undefined {
@@ -48,12 +47,12 @@ export class UserService {
       if (response.success || response.user) {
         const userRes = response.user;
         const user = new User(userRes.id, userRes.username, userRes.email, userRes.firstname, userRes.lastname, userRes.join_date, userRes.role === 1);
-        
+
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", response.token);
 
         resolve(true);
-      } else { 
+      } else {
         resolve(false);
       }
     });
@@ -89,12 +88,16 @@ export class UserService {
       token: localStorage.getItem("token")
     }
 
-    this.http.post<any>(requestUrl, requestBody).toPromise()
+    console.log(requestBody);
+    // console.log(requestUrl);
+
+    this.http.post<{success:boolean, data:any}>(requestUrl, requestBody).toPromise()
       .then(response => {
+        console.log(response)
         if (response.success) {
           localStorage.clear();
         }
-      });
+      }).catch(error => console.log(error));
   }
 
   public loadUserById(id:number):Promise<User|undefined> {
@@ -111,8 +114,18 @@ export class UserService {
   }
 
   public getUserById(id:number):User|undefined{
-    const user = this.allUsers.find(u => u.id === id);
+    const user = this._allUsers.find(u => u.id === id);
     if (user) return user;
     return undefined;
+  }
+
+  public deleteUser(uid:number):Promise<{success: boolean, message:string}> {
+    const requestUrl = `${this.baseUrl}delete`;
+    const requestBody = {
+      token: localStorage.getItem("token"),
+      uid: uid
+    }
+
+    return this.http.delete<{success: boolean, message:string}>(requestUrl, { body: requestBody } ).toPromise();
   }
 }
