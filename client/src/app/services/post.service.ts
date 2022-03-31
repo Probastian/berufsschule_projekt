@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Post } from '../models/post';
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
-
+import { Comment } from '../models/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class PostService {
     ).toPromise();
   }
 
-  public loadPostsByTopic(id:number):Promise<Post[]> {
+  public async loadPostsByTopic(id:number):Promise<Post[]> {
     const requestUrl = `${this.baseUrl}topic/${id}`;
 
     return this.http.get<{success:boolean, data:any[]}>(requestUrl).pipe(
@@ -50,7 +50,7 @@ export class PostService {
     ).toPromise()
   }
 
-  public loadPostById(id:number):Observable<Post|undefined> {
+  public async loadPostById(id:number):Promise<Post|undefined> {
     const requestUrl = `${this.baseUrl}id/${id}`;
 
     return this.http.get<{success:boolean, data:any}>(requestUrl).pipe(
@@ -60,6 +60,44 @@ export class PostService {
         const data = response.data;
         return new Post(data.id, data.user_id, data.topic_id, data.name, data.content, 0, new Date(data.creation_date));
       })
-    );
+    ).toPromise();
+  }
+
+  public async loadComments(pid:number):Promise<Comment[]> {
+    const requestUrl = `${this.baseUrl}comment/id/${pid}`;
+    console.log(requestUrl)
+
+    return this.http.get<{success:boolean, data:any[]}>(requestUrl).pipe(
+      map(response => {
+        console.log(response)
+        if (!response.success) return [];
+
+        return response.data.map(comment => {
+          return new Comment(comment.id, comment.user_id, comment.text, new Date(comment.creation_date));
+        });
+      })
+    ).toPromise()
+  }
+
+  public async deleteComment(cid:number):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}comment/delete`;
+    const requestBody = {
+      token: localStorage.getItem('token'),
+      cid: cid
+    }
+
+    return this.http.post<{success:boolean}>(requestUrl, requestBody).pipe(
+      map(response => {
+        console.log(response)
+        if (response) {
+          return response.success;
+        }
+        return false;
+      })
+    ).toPromise();
+  }
+
+  public async postComment() {
+
   }
 }

@@ -74,6 +74,19 @@ const getSubscriptionPosts = (uid, callBack) => {
     comment function
 */
 
+const getCommentsByPost = (pid, callBack) => {
+    mysql.query(
+        'SELECT * FROM comment WHERE post_id=?',
+        [pid],
+        (error, results) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, results);
+        }
+    )
+}
+
 const createComment = (uid, data, callBack) => {
     mysql.query(
         'INSERT INTO comment (user_id, post_id, text) values (?, ?, ?)',
@@ -130,4 +143,4 @@ const removeLabel = (data, callBack) => {
     )
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, createComment, deleteComment, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getCommentsByPost, createComment, deleteComment, addLabel, removeLabel }

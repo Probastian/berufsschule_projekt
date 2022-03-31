@@ -127,6 +127,26 @@ const deletePost = async (req, res) => {
     CommentFunctions
 */
 
+const getComments = (req, res) => {
+    const pid = parseInt(req.params.id);
+
+    if (pid) {
+        postService.getCommentsByPost(pid, (error, results) => {
+            if (error || !results) {
+                return res.status(200).json({
+                    success: false,
+                    message: "Database connection error occured."
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                data: results
+            });
+        }) 
+    }
+}
+
 const createComment = async (req, res) => {
     const token = req.body.token;
 
@@ -209,4 +229,4 @@ const removeLabel = async(req, res) => {
     }
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, createComment, deleteComment, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getComments, createComment, deleteComment, addLabel, removeLabel }
