@@ -63,4 +63,18 @@ export class TopicService {
       })
     ).toPromise();
   }
+
+  public deleteTopic(id:number):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}/`;
+    const requestBody = {
+      token: localStorage.getItem("token"),
+      tid: id
+    }
+
+    return this.http.delete<{success:boolean}>(requestUrl, { body: requestBody } ).pipe(
+      map(response => {
+        return response.success;
+      })
+    ).toPromise();
+  }
 } 

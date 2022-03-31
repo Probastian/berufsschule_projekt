@@ -125,6 +125,26 @@ const updateTopic = async (req, res) => {
     }
 }
 
+const deleteTopic = async (req, res) => {
+    const body = req.body;
+    
+    const validSession = await sessionService.verify(body.token);
+    const hasPermission = await permissionService.hasTopicPermission(validSession);
+    if (hasPermission) {
+        topicService.deleteTopic(body.tid, (error, result) => {
+            if (error) {
+                return res.status(200).json({
+                    success: false,
+                    message: "Database connection error occured."
+                });
+            }
+            return res.status(200).json({
+                success: true
+            });
+        })
+    }
+}
+
 const subscribe = async (req, res) => {
     const token = req.body.token;
 
@@ -193,4 +213,4 @@ const unsubscribe = async (req, res) => {
     }
 }
 
-module.exports = { getAllTopics, getTopicById, getSubscriptions, createTopic, updateTopic,  subscribe, unsubscribe }
+module.exports = { getAllTopics, getTopicById, getSubscriptions, createTopic, deleteTopic, updateTopic,  subscribe, unsubscribe }

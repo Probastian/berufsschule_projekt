@@ -94,6 +94,20 @@ export class TopicComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public async deleteTopic():Promise<void> {
+    if (this.topic) {
+      const response = await this.topicService.deleteTopic(this.topic.id)
+    
+      if (response) {
+        this.router.navigate(["/topics"]);
+      } else {
+        alert("An error occured while deleting this topic.")
+      }
+    } else {
+      alert("An error occured while deleting this topic.")
+    }
+  }
+
   getAvailableLabels(): string[] {
     return [
       "label1",

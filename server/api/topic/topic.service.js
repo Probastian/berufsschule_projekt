@@ -35,6 +35,23 @@ const update = (data, callBack) => {
     )
 }
 
+const deleteTopic = (tid, callBack) => {
+    let queries = 'delete pl, p from post_label pl inner join post p on pl.pid=p.id inner join topic t on t.id=p.topic_id where t.id=?;'
+    queries += 'delete from post where topic_id=?;'
+    queries += 'delete from topic where id=?;'
+
+    mysql.query(
+        queries, 
+        [tid, tid, tid],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
+        }
+    )
+}
+
 const getAll = (callBack) => {
     mysql.query(
         `SELECT * FROM topic`,
@@ -100,4 +117,4 @@ const unsubscribe = (data, callBack) => {
     )
 }
 
-module.exports = { create, update,  getAll, getSubscriptions, getById, subscribe, unsubscribe }
+module.exports = { create, update, deleteTopic, getAll, getSubscriptions, getById, subscribe, unsubscribe }
