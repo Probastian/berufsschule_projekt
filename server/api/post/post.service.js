@@ -117,6 +117,32 @@ const deleteComment = (pid, callBack) => {
     Label functions
 */
 
+const getAllLabels = (callBack) => {
+    mysql.query(
+        `SELECT * FROM label`,
+        [],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
+        }
+    )
+}
+
+const getLabelsForPost = (pid, callBack) => {
+    mysql.query(
+        `SELECT l.* FROM label l LEFT JOIN post_label pl on pl.lid=l.id where pl.pid=?`,
+        [pid],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
+        }
+    )
+}
+
 const addLabel = (data, callBack) => {
     mysql.query(
         `INSERT INTO post_label() values (?, ?)`,
@@ -143,4 +169,4 @@ const removeLabel = (data, callBack) => {
     )
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getCommentsByPost, createComment, deleteComment, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getCommentsByPost, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }

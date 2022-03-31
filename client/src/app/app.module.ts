@@ -17,7 +17,7 @@ import { TopicModule } from './modules/topic/topic.module';
 import { FeedModule } from './modules/feed/feed.module';
 import { PostModule } from './modules/post/post.module';
 import { Page404Component } from './component/page404/page404.component';
-import { PostComponent } from './modules/post/post/post.component';
+import { NgSelectizeModule } from 'ng-selectize';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import { PostComponent } from './modules/post/post/post.component';
     TopicsModule,
     TopicModule,
     FeedModule,
-    PostModule
+    PostModule,
+    NgSelectizeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

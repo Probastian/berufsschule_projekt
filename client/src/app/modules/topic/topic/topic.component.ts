@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Label } from 'src/app/models/label';
 import { Post } from 'src/app/models/post';
 import { Topic } from 'src/app/models/topic';
 import { User } from 'src/app/models/user';
@@ -18,7 +19,16 @@ export class TopicComponent implements OnInit, AfterViewInit {
   private _topic:Topic|undefined;
   private _topicCreator:User|undefined;
   private _posts:Post[] = [];
-  private _currentUser:User;
+  private _currentUser:User|undefined;
+  private _labels:Label[] = [];
+
+  private _autocompleteConfig = {
+    labelField: 'name',
+    valueField: 'id',
+    maxItems: 10,
+    highlight: true,
+    create: false,
+  }
 
   public availableLabels: string[];
 
@@ -33,6 +43,9 @@ export class TopicComponent implements OnInit, AfterViewInit {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
     this.availableLabels = this.getAvailableLabels();
     this._currentUser = userSerivce.getCurrentUser();
+    this.postService.loadLabels().then(labels => {
+      this._labels = labels;
+    });
   }
 
   async ngOnInit() {
@@ -56,6 +69,14 @@ export class TopicComponent implements OnInit, AfterViewInit {
 
   public get posts():Post[] {
     return this._posts;
+  }
+
+  public get autocompleteConfig():any {
+    return this._autocompleteConfig;
+  }
+
+  public get labels():Label[] {
+    return this._labels;
   }
 
   public createPost(form:NgForm) {

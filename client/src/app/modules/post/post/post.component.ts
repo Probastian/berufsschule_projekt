@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { NgForm } from '@angular/forms';
 import * as $ from 'jquery';
+import { Label } from 'src/app/models/label';
 
 @Component({
   selector: 'app-post',
@@ -21,14 +22,19 @@ export class PostComponent implements OnInit {
   private _topic:Topic|undefined;
   private _comments:Comment[] = [];
   private _currentUser:User|undefined;
+  private _labels:Label[] = [];
 
   public labelsList:Array<string>;
 
   constructor(private postService:PostService, private topicService:TopicService, private userService:UserService, private route:ActivatedRoute) {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
-    this._currentUser = this.userService.getCurrentUser()
+    this._currentUser = this.userService.getCurrentUser();
 
-    this.labelsList = Array.from(this.getLabels())
+    this.postService.loadLabels().then(labels => {
+      this._labels = labels;
+    });
+
+    this.labelsList = Array.from(this.getLabels());
   }
 
   async ngOnInit():Promise<void> {
@@ -38,6 +44,7 @@ export class PostComponent implements OnInit {
       this._post = post;
       this._topic = await this.topicService.loadById(post.topicId);
       this._comments = await this.postService.loadComments(post.id);
+      this._labels = await this.postService.loadLabelForPost(post.id);
     }
   }
 
@@ -51,6 +58,10 @@ export class PostComponent implements OnInit {
 
   public get comments():Comment[] {
     return this._comments;
+  }
+
+  public get labels():Label[] {
+    return this._labels;
   }
 
   public getUsernameById(id:number|undefined) {
