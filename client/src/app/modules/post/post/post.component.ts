@@ -7,6 +7,7 @@ import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { NgForm } from '@angular/forms';
 import * as $ from 'jquery';
 
 @Component({
@@ -67,6 +68,21 @@ export class PostComponent implements OnInit {
 
     return (user.id === element_uid || user.isAdmin);
   } 
+
+  public createComment(form:NgForm) {
+    if (form.valid) {
+      const user = this._currentUser;
+      const post = this.post;
+      
+      if (user && post) {
+        this.postService.postComment(post.id, user.id, form.value.comment).then(comment => {
+          if (comment) {
+            this._comments = [comment].concat(this.comments);
+          }
+        });
+      }
+    }
+  }
 
   public deleteComment(comment:Comment):void {
     this.postService.deleteComment(comment.id)

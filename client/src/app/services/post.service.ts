@@ -129,5 +129,14 @@ export class PostService {
       uid: uid,
 	    text: text
     }
+    console.log(requestBody);
+
+    return this.http.post<{success:boolean, cid:number}>(requestUrl, requestBody).pipe(
+      map(response => {
+        console.log(response)
+        if (!response.success) return undefined;
+        return new Comment(response.cid, uid, text, new Date());
+      })
+    ).toPromise()
   }
 }

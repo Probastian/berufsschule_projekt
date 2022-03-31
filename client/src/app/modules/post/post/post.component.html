@@ -57,8 +57,7 @@
   <div class="modal fade" id="modal-new-comment" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <form id="form-new-comment">
-          <!--#newcomment="ngForm"-->
+        <form #newComment="ngForm" (ngSubmit)="createComment(newComment)">
           <div class="modal-header">
             <h5 class="modal-title">Create new comment</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -70,7 +69,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Post</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Post</button>
           </div>
         </form>
       </div>
