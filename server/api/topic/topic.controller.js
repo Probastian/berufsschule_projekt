@@ -129,7 +129,6 @@ const deleteTopic = async (req, res) => {
     const body = req.body;
     
     const validSession = await sessionService.verify(body.token);
-    console.log(body.tid)
     const hasPermission = await permissionService.hasTopicPermission(validSession, body.tid);
     if (hasPermission) {
         topicService.deleteTopic(body.tid, (error, result) => {
@@ -140,9 +139,15 @@ const deleteTopic = async (req, res) => {
                 });
             }
             return res.status(200).json({
-                success: true
+                success: true,
+                data: result
             });
         })
+    } else {
+        return res.status(200).json({
+            success: false,
+            message: "Permission denied."
+        });
     }
 }
 
