@@ -2,6 +2,11 @@ const mysql = require("../config/database");
 
 const isAdmin = async(uid) => {
     return new Promise((resolve) => {
+        if (!uid || uid == 0) {
+            console.log("no uid")
+            resolve(false);
+            return;
+        }
         mysql.query(
             `SELECT role from user where id=?`,
             [uid],
