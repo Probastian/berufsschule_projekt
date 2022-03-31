@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { LoginComponent } from "./component/login/login.component";
+import { Page404Component } from "./component/page404/page404.component";
 import { FeedComponent } from "./modules/feed/feed/feed.component";
 import { PostComponent } from "./modules/post/post/post.component";
 import { SitemapComponent } from "./modules/sitemap/sitemap.component";
@@ -34,12 +35,16 @@ const routes: Routes = [
         component: UserComponent
     },
     {
+        path: '404', 
+        component: Page404Component
+    },
+    {
         path: 'sitemap', 
         component: SitemapComponent
     },
     {
         path: '**',
-        redirectTo: ''
+        redirectTo: '404'
     }
 ]
 
