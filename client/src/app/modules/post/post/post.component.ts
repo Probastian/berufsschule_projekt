@@ -7,6 +7,7 @@ import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-post',
@@ -62,11 +63,20 @@ export class PostComponent implements OnInit {
 
   public hasPermission(element_uid:number|undefined):boolean {
     const user = this._currentUser;
-    console.log(user)
     if (user === null || user === undefined || element_uid === undefined) return true;
 
     return (user.id === element_uid || user.isAdmin);
   } 
+
+  public deleteComment(comment:Comment):void {
+    this.postService.deleteComment(comment.id)
+      .then(success => {
+        console.log(success)
+        if (success) {
+          this.comments.splice(this.comments.indexOf(comment), 1);
+        }
+      });
+  }
 
   getLabels():Array<string> {
     return [

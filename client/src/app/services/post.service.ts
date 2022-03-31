@@ -78,4 +78,26 @@ export class PostService {
       })
     ).toPromise()
   }
+
+  public async deleteComment(cid:number):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}comment/delete`;
+    const requestBody = {
+      token: localStorage.getItem('token'),
+      cid: cid
+    }
+
+    return this.http.post<{success:boolean}>(requestUrl, requestBody).pipe(
+      map(response => {
+        console.log(response)
+        if (response) {
+          return response.success;
+        }
+        return false;
+      })
+    ).toPromise();
+  }
+
+  public async postComment() {
+
+  }
 }
