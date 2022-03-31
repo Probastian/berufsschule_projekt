@@ -26,7 +26,6 @@ export class FeedComponent implements OnInit {
   }
 
   public displayWelcomeBack():boolean {
-    console.log(this._currentUser)
     if (this._currentUser === null || this._currentUser === undefined) {
       return true;
     } 

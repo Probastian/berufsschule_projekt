@@ -30,8 +30,9 @@ export class UserService {
     )
   }
 
-  public getCurrentUser():User {
+  public getCurrentUser():User|undefined {
     const userData = JSON.parse(localStorage.getItem('user') as string);
+    if (userData == undefined) return undefined
     return new User(userData._id, userData._username, userData._email, userData._firstname, userData._lastname, userData._joinDate, userData._isAdmin);
   }
 

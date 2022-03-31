@@ -8,7 +8,7 @@
   </span>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
-  <button *ngIf="!hasPermission(post?.userId)" type="button" class="btn btn-danger f-right" data-bs-toggle="modal"
+  <button *ngIf="hasPermission(post?.userId)" type="button" class="btn btn-danger f-right" data-bs-toggle="modal"
     data-bs-target="#modal-delete-post">
     Delete
   </button>
@@ -84,7 +84,7 @@
       <div class="display-flex">
         <!-- Button trigger modal -->
         <!-- TODO: Implement Admin Condition -->
-        <a *ngIf="!hasPermission(comment.user_id)" type="button" class="p-0 text-danger small" data-bs-toggle="modal"
+        <a *ngIf="hasPermission(comment.user_id)" type="button" class="p-0 text-danger small" data-bs-toggle="modal"
           [attr.data-bs-target]="'#modal-delete-comment-'+comment.id">
           Delete
         </a>

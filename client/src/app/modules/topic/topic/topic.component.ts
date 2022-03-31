@@ -19,7 +19,7 @@ export class TopicComponent implements OnInit, AfterViewInit {
   private _topic:Topic|undefined;
   private _topicCreator:User|undefined;
   private _posts:Post[] = [];
-  private _currentUser:User;
+  private _currentUser:User|undefined;
   private _labels:Label[] = [];
 
   private _autocompleteConfig = {
