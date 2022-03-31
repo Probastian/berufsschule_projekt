@@ -9,12 +9,14 @@ const port = process.env.SERVER_PORT || 3000;
 const userRouter = require("./api/user/user.router"); 
 const topicRouter = require('./api/topic/topic.router');
 const postRouter = require('./api/post/post.router')
+const labelRouter = require('./api/label/label.router')
 
 
 server.use(express.json());
 server.use("/api/user", userRouter);
 server.use("/api/topic", topicRouter);
 server.use("/api/post", postRouter);
+server.use("/api/label", labelRouter);
 
 server.use(cookieParser);
 const ttl = 1000 * 60 * 60 * 8;

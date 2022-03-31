@@ -16,7 +16,7 @@ const isAdmin = async(uid) => {
                 resolve(false);
             }
         )
-    })
+    });
 }
 
 const hasUserPermission = async (currentUid, uid) => {
@@ -95,4 +95,4 @@ const hasPostPermission = async (pid, uid) => {
     });
 }
 
-module.exports = { hasUserPermission, hasTopicPermission, hasPostPermission }
+module.exports = { isAdmin, hasUserPermission, hasTopicPermission, hasPostPermission }
