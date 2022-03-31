@@ -45,11 +45,8 @@ DROP TABLE IF EXISTS `label`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `label` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `topic_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `prevent_label_duplicates` (`topic_id`,`name`),
-  CONSTRAINT `fk_topic_label` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
