@@ -96,6 +96,22 @@ export class PostService {
     ).toPromise()
   }
 
+  public async editPost(pid:number, name:string, description:string):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}${pid}`;
+    const requestBody = {
+      token: localStorage.getItem('token'),
+      pid: pid,
+      name: name,
+      content: description
+    }
+
+    return this.http.put<{success:boolean, pid:number}>(requestUrl, requestBody).pipe(
+      map(response => {
+        return response.success;
+      })
+    ).toPromise()
+  }
+
   public async deletePost() {
 
   }

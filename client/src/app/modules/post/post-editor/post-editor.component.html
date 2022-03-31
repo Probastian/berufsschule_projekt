@@ -1,0 +1,19 @@
+<span class="bg-yarac-primary">
+  <a class="label" [href]="'/topic/'+topic?.id">{{topic?.name}}</a>
+  <div class="vr mx-1"></div>
+  <a>{{getUsernameById(post?.userId)}}</a>
+  <div class="vr mx-1"></div>
+  <a>{{this.post?.creationDate | date: 'dd.MM.yyyy'}}</a>
+</span>
+<form #newPost="ngForm" (ngSubmit)="editPost(newPost)">
+  <input type="text" ngModel class="name-input form-control p-0 mb-4 bg-editable" name="name" [value]="post?.name">
+  <!-- [value]="labelsAsStrings().join(',')" -->
+  <!-- <ng-selectize #labelsSelectize [config]="autocompleteConfig" [options]="allLabels" ngModel name="labels"></ng-selectize>  -->
+  <div class="card">
+    <div class="card-body p-1 px-2">
+      <input type="text" ngModel class="card-text form-control p-0 description-input bg-editable" name="description" [value]="post?.content">
+    </div>
+  </div>
+  <hr class="my-2">
+  <button type="submit" class="btn btn-primary">Apply</button>
+</form>

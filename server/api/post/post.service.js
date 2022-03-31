@@ -43,6 +43,19 @@ const createPost = (uid, data, callBack) => {
     )
 }
 
+const editPostById = (postId, data, callBack) => {
+    mysql.query(
+        'UPDATE post SET name=?, content=? WHERE id=?',
+        [data.name, data.content, postId],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
+        }
+    )
+}
+
 const deletePost = (id, callBack) => {
     mysql.query('DELETE FROM post WHERE id=?',
     [id],
@@ -179,4 +192,4 @@ const removeLabel = (data, callBack) => {
     )
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getDefaultHomePosts, getCommentsByPost, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, editPostById, deletePost, getSubscriptionPosts, getDefaultHomePosts, getCommentsByPost, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }

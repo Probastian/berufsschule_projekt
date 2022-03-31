@@ -16,7 +16,9 @@ import { UserComponent } from './modules/user/user.component';
 import { TopicModule } from './modules/topic/topic.module';
 import { FeedModule } from './modules/feed/feed.module';
 import { PostModule } from './modules/post/post.module';
+import { PostEditorModule } from './modules/post/post-editor/post-editor.module';
 import { Page404Component } from './component/page404/page404.component';
+import { Page401Component } from './component/page401/page401.component';
 import { NgSelectizeModule } from 'ng-selectize';
 import { LabelsModule } from './modules/labels/labels.module';
 
@@ -27,7 +29,8 @@ import { LabelsModule } from './modules/labels/labels.module';
     LoginComponent,
     BasepageComponent,
     Page404Component,
-    UserComponent
+    UserComponent,
+    Page401Component
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { LabelsModule } from './modules/labels/labels.module';
     TopicModule,
     FeedModule,
     PostModule,
+    PostEditorModule,
     NgSelectizeModule,
     LabelsModule
   ],

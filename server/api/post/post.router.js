@@ -1,10 +1,11 @@
 const router = require("express").Router();
 
-const { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getDefaultHome, getComments, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel } = require('./post.controller');
+const { getPostsByTopic, getPostById, createPost, editPostById, deletePost, getSubscriptions, getDefaultHome, getComments, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel } = require('./post.controller');
 
 // Post
 router.get('/topic/:id', getPostsByTopic);
 router.get('/id/:id', getPostById);
+router.put('/:id', editPostById);
 router.get('/default', getDefaultHome)
 router.post('/subs', getSubscriptions);
 router.post('/create', createPost);

@@ -24,8 +24,6 @@ export class PostComponent implements OnInit {
   private _currentUser:User|undefined;
   private _labels:Label[] = [];
 
-  public labelsList:Array<string>;
-
   constructor(private postService:PostService, private topicService:TopicService, private userService:UserService, private route:ActivatedRoute) {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
     this._currentUser = this.userService.getCurrentUser();
@@ -33,8 +31,6 @@ export class PostComponent implements OnInit {
     this.postService.loadLabels().then(labels => {
       this._labels = labels;
     });
-
-    this.labelsList = Array.from(this.getLabels());
   }
 
   async ngOnInit():Promise<void> {

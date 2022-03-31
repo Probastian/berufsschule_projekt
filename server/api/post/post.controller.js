@@ -73,6 +73,28 @@ const createPost = async (req, res) => {
     }
 }
 
+const editPostById = async (req, res) => {
+    const postId = parseInt(req.params.id);
+    const token = req.body.token;
+
+    const validSession = await sessionService.verify(token);
+    if (validSession > 0) {
+        postService.editPostById(postId, req.body, (error, result) => {
+            if (error || !result) {
+                return res.status(200).json({
+                    success: false,
+                    message: "Database connection error occured."
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                pid: postId
+            })
+        });
+    }
+}
+
 const getSubscriptions = async(req, res) => {
     const token = req.body.token;
 
@@ -274,4 +296,4 @@ const removeLabel = async(req, res) => {
     }
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getDefaultHome, getComments, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, editPostById, deletePost, getSubscriptions, getDefaultHome, getComments, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }
