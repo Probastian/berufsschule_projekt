@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Topic } from 'src/app/models/topic';
 import { TopicService } from 'src/app/services/topic.service';
 
@@ -11,19 +12,11 @@ export class TopicsComponent implements OnInit {
   public topicsMap:Map<string, Topic[]> = new Map();
   public topicsMapKeys:Array<string> = [];
 
-  constructor(private topicService:TopicService) {
-    
-    // this.topicsMap = new Map([
-    //   ["t", ["test1", "test2"]],
-    //   ["u", ["uzo"]]
-    // ])
-    // this.topicsMapKeys = Array.from(this.topicsMap.keys());
-  }
+  constructor(private topicService:TopicService) { }
 
   ngOnInit(){
     this.topicService.loadAllTopics()
       .then(topics => { 
-        console.log(topics)
         this.mapTopics(topics);
       });
   }
@@ -45,7 +38,20 @@ export class TopicsComponent implements OnInit {
     this.topicsMapKeys = Array.from(topicsMap.keys());
   }
 
-  getType(obj:any) {
-    return typeof obj as string;
+  public async createTopic(form:NgForm) {
+    if (form.valid) {
+      const values = form.value;
+      const newTopic = await this.topicService.createTopic(values.name, values.description);
+      if (newTopic !== undefined) {
+        const firstChar = newTopic.name.charAt(0)
+        const previous = this.topicsMap.get(firstChar)
+        if (previous) {
+          previous.push(newTopic)
+        } else {
+          this.topicsMap.set(firstChar, [newTopic]);
+        }
+        this.topicsMapKeys = Array.from(this.topicsMap.keys());
+      }
+    }
   }
 }

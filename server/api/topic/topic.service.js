@@ -8,11 +8,11 @@
 
 const mysql = require("../../config/database");
 
-const create = (data, callBack) => {
+const create = (data, uid, callBack) => {
     mysql.query(
-        `INSERT INTO topic (name, description, creator, color) 
-                    values (?, ?, ?, ?)`,
-        [data.name, data.description, data.userId, data.color],
+        `INSERT INTO topic (name, description, creator) 
+                    values (?, ?, ?)`,
+        [data.name, data.description, uid],
         (error, result) => {
             if (error) {
                 return callBack(error);
@@ -24,8 +24,8 @@ const create = (data, callBack) => {
 
 const update = (data, callBack) => {
     mysql.query(
-        `UPDATE topic set name=?, description=?, color=? WHERE id=?`,
-        [data.name, data.description, data.color, data.tid],
+        `UPDATE topic set name=?, description=? WHERE id=?`,
+        [data.name, data.description, data.tid],
         (error, results) => {
             if (error) {
                 return callBack(error);

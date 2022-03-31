@@ -78,7 +78,18 @@ const createTopic = async (req, res) => {
 
     const validSession = await sessionService.verify(token);
     if (validSession > 0) {
-    
+        topicService.create(req.body, validSession, (error, result) => {
+            if (error) {
+                return res.status(200).json({
+                    success: false,
+                    message: "An error has occured while creation the topic."
+                });
+            }
+            return res.status(200).json({
+                success: true,
+                tid: result.insertId
+            });
+        });
     } else {
         return res.json({
             success: false,
