@@ -18,6 +18,7 @@ import { FeedModule } from './modules/feed/feed.module';
 import { PostModule } from './modules/post/post.module';
 import { Page404Component } from './component/page404/page404.component';
 import { NgSelectizeModule } from 'ng-selectize';
+import { LabelsModule } from './modules/labels/labels.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,6 @@ import { NgSelectizeModule } from 'ng-selectize';
     TopbarComponent,
     LoginComponent,
     BasepageComponent,
-    UserComponent,
     Page404Component,
     UserComponent
   ],
@@ -40,7 +40,8 @@ import { NgSelectizeModule } from 'ng-selectize';
     TopicModule,
     FeedModule,
     PostModule,
-    NgSelectizeModule
+    NgSelectizeModule,
+    LabelsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
