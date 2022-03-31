@@ -25,7 +25,7 @@ export class TopicsComponent implements OnInit {
     const topicsMap:Map<string, Topic[]> = new Map();
 
     for (let topic of topics) {
-      const firstChar = topic.name.charAt(0);
+      const firstChar = topic.name.charAt(0)?.toUpperCase();
     
       if (topicsMap.get(firstChar)) {
         topicsMap.get(firstChar)?.push(topic)
