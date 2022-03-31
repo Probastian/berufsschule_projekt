@@ -8,7 +8,8 @@
   </span>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
-  <button *ngIf="!hasPermission(post?.userId)" type="button" class="btn btn-danger f-right" data-bs-toggle="modal" data-bs-target="#modal-delete-post">
+  <button *ngIf="!hasPermission(post?.userId)" type="button" class="btn btn-danger f-right" data-bs-toggle="modal"
+    data-bs-target="#modal-delete-post">
     Delete
   </button>
   <!-- Admin Delete-Modal -->
@@ -45,7 +46,37 @@
   </div>
 </div>
 <div class="my-4"></div>
-<h3>Comments ({{comments.length}})</h3>
+<span class="display-flex w-100">
+  <h3 class="mb-0">Comments ({{comments.length}})</h3>
+  <!-- Button trigger modal -->
+  <!-- TODO: Implement Admin Condition -->
+  <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modal-new-comment">
+    New comment
+  </button>
+  <!-- New comment-Modal -->
+  <div class="modal fade" id="modal-new-comment" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <form id="form-new-comment">
+          <!--#newcomment="ngForm"-->
+          <div class="modal-header">
+            <h5 class="modal-title">Create new comment</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Comment</label>
+              <textarea ngModel class="form-control span6" rows="8" required="required" name="comment"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</span>
 <ul class="comments-list list-group">
   <li class="list-group-item comment" *ngFor="let comment of comments">
     <div class="d-flex w-100 align-items-center justify-content-between">
@@ -53,16 +84,19 @@
       <div class="display-flex">
         <!-- Button trigger modal -->
         <!-- TODO: Implement Admin Condition -->
-        <a *ngIf="!hasPermission(comment.user_id)" type="button" class="p-0 text-danger small" data-bs-toggle="modal" [attr.data-bs-target]="'#modal-delete-comment-'+comment.id">
+        <a *ngIf="!hasPermission(comment.user_id)" type="button" class="p-0 text-danger small" data-bs-toggle="modal"
+          [attr.data-bs-target]="'#modal-delete-comment-'+comment.id">
           Delete
         </a>
         <!-- Admin Delete-Modal -->
-        <div class="modal fade" [id]="'modal-delete-comment-'+comment.id" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" [id]="'modal-delete-comment-'+comment.id" tabindex="-1" role="dialog"
+          aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Delete comment?</h5>
-                <button [id]="'close-modal-'+comment.id" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button [id]="'close-modal-'+comment.id" type="button" class="btn-close" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <p>Are you sure you want to delete this comment?</p>
@@ -72,7 +106,8 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   Cancel
                 </button>
-                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteComment(comment)">Delete</button>
+                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"
+                  (click)="deleteComment(comment)">Delete</button>
               </div>
             </div>
           </div>
