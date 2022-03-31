@@ -31,10 +31,9 @@ const getLabelById = (pid, callBack) => {
 }
 
 const createLabel = (data, callBack) => {
-    // TODO: Remove topic id (=tid) from this!
     mysql.query(
-        `INSERT INTO label (name, topic_id) VALUES (?, ?)`,
-        [data.name, data.tid],
+        `INSERT INTO label (name) VALUES (?)`,
+        [data.name],
         (error, result) => {
             if (error) {
                 return callBack(error);

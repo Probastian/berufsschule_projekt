@@ -3,9 +3,9 @@ const router = require("express").Router();
 const { getAllLabels, getLabelById, createLabel, deleteLabel } = require('./label.controller');
 
 router.get('/', getAllLabels);
-router.get('/id/:id', getLabelById);
+router.get('/:id', getLabelById);
 router.post('/', createLabel);
-router.delete('/id/:id', deleteLabel);
+router.delete('/:id', deleteLabel);
 
 router.get('*', (req, res) => {
     return res.json({

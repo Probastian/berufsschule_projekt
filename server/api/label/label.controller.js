@@ -50,7 +50,7 @@ const createLabel = async(req, res) => {
     const body = req.body;
     
     const validSession = await sessionService.verify(body.token);
-    const hasPermisson = permissionService.isAdmin(body.uid);
+    const hasPermisson = permissionService.isAdmin(validSession);
     if (hasPermisson) {
         labelService.createLabel(body, (error, result) => {
             if (error || !result) {
@@ -70,7 +70,7 @@ const deleteLabel = async(req, res) => {
     const body = req.body;
     
     const validSession = await sessionService.verify(body.token);
-    const hasPermisson = permissionService.isAdmin(body.uid);
+    const hasPermisson = permissionService.isAdmin(validSession);
     if (hasPermisson) {
         labelService.deleteLabel(labelId, (error, result) => {
             console.log(result);
