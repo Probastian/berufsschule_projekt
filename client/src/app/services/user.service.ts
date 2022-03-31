@@ -119,13 +119,17 @@ export class UserService {
     return undefined;
   }
 
-  public deleteUser(uid:number):Promise<{success: boolean, message:string}> {
+  public deleteUser(uid:number):Promise<boolean> {
     const requestUrl = `${this.baseUrl}delete`;
     const requestBody = {
       token: localStorage.getItem("token"),
       uid: uid
     }
 
-    return this.http.delete<{success: boolean, message:string}>(requestUrl, { body: requestBody } ).toPromise();
+    return this.http.delete<{success: boolean}>(requestUrl, { body: requestBody } ).pipe(
+      map(response => {
+        return response.success;
+      })
+    ).toPromise();
   }
 }

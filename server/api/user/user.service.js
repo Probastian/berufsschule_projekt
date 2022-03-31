@@ -80,16 +80,20 @@ const updateUser = (data, callBack) => {
 }
 
 const deleteUser = (uid, callBack) => {
-    let queries = "DELETE FROM comment WHERE user_id=?;" 
-    queries += "DELETE FROM post where user_id=?;"
-    queries += "DELETE FROM topic where creator=?;"
+    let queries = `delete pl from post_label pl inner join post p on pl.pid=p.id inner join topic t on t.id=p.topic_id where t.creator=?;`;
+    queries += `delete c from comment c inner join post p on c.post_id=p.id inner join topic t on t.id=p.topic_id where t.creator=?;`;
+    queries += `delete p from post p inner join topic t on t.id=p.topic_id where creator=?;`;
+    queries += `delete from topic where creator=?;`;
+    queries += `delete from user where id=?;`;
+
     mysql.query(
-        `DELETE FROM user WHERE id=?`,
-        [uid],
+        queries,
+        [uid, uid, uid, uid, uid],
         (error) => {
             if (error) {
                 return callBack(error)
             }
+            return callBack(null);
         }
     );
 }
