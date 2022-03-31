@@ -65,7 +65,7 @@ export class TopicService {
   }
 
   public deleteTopic(id:number):Promise<boolean> {
-    const requestUrl = `${this.baseUrl}/`;
+    const requestUrl = `${this.baseUrl}`;
     const requestBody = {
       token: localStorage.getItem("token"),
       tid: id

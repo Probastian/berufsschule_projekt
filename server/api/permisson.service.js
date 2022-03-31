@@ -56,18 +56,18 @@ const hasTopicPermission = async (uid, tid) => {
 
     return new Promise((resolve) => {
         mysql.query(
-            `SELECT creator FROM topic WHERE id=?`,
+            `SELECT * FROM topic where id=?;`,
             [tid],
-            (result, error) => {
+            (error, result) => {
                 if (error) {
                     resolve(false);
                 }
 
-                console.log(result)
                 if (result !== null && result[0].creator === uid) {
                     resolve(true);
+                } else {
+                    resolve(false);
                 }
-                resolve(false);
             }
         )
     });

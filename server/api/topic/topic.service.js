@@ -30,15 +30,15 @@ const update = (data, callBack) => {
             if (error) {
                 return callBack(error);
             }
-            return callBack(null, results[0])
+            return callBack(null, results[0]);
         }
     )
 }
 
 const deleteTopic = (tid, callBack) => {
-    let queries = 'delete pl, p from post_label pl inner join post p on pl.pid=p.id inner join topic t on t.id=p.topic_id where t.id=?;'
-    queries += 'delete from post where topic_id=?;'
-    queries += 'delete from topic where id=?;'
+    let queries = `delete pl from post_label pl inner join post p on pl.pid=p.id inner join topic t on t.id=p.topic_id where t.id=?;`;
+    queries += `delete from post where topic_id=?;`;
+    queries += `delete from topic where id=?;`;
 
     mysql.query(
         queries, 
