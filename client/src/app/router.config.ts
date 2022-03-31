@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { LoginComponent } from "./component/login/login.component";
 import { Page404Component } from "./component/page404/page404.component";
 import { FeedComponent } from "./modules/feed/feed/feed.component";
+import { LabelsComponent } from "./modules/labels/labels.component";
 import { PostComponent } from "./modules/post/post/post.component";
 import { SitemapComponent } from "./modules/sitemap/sitemap.component";
 import { TopicComponent } from "./modules/topic/topic/topic.component";
@@ -41,6 +42,10 @@ const routes: Routes = [
     {
         path: 'sitemap',
         component: SitemapComponent
+    },
+    {
+        path: 'labels',
+        component: LabelsComponent
     },
     {
         path: '**',

@@ -9,16 +9,26 @@ import { Label } from '../models/label';
 export class LabelService {
   private baseUrl = "api/label/"
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public async createLabel(name:string):Promise<Label|undefined> {
+  public async getAll(): Promise<Label[]> {
+    const requestUrl = this.baseUrl;
+
+    return this.http.get<{ success: boolean, data:Label[] }>(requestUrl).pipe(
+      map(response => {
+        return response.data;
+      })
+    ).toPromise()
+  }
+
+  public async createLabel(name: string): Promise<Label | undefined> {
     const requestUrl = this.baseUrl;
     const requestBody = {
       token: localStorage.getItem('token'),
       name: name
     }
-    
-    return this.http.post<{success:boolean, lid:number}>(requestUrl, requestBody).pipe(
+
+    return this.http.post<{ success: boolean, lid: number }>(requestUrl, requestBody).pipe(
       map(response => {
         if (!response.success) return undefined;
         const lid = response.lid;
@@ -27,13 +37,13 @@ export class LabelService {
     ).toPromise()
   }
 
-  public async deleteLabel(id:number):Promise<boolean|undefined> {
+  public async deleteLabel(id: number): Promise<boolean | undefined> {
     const requestUrl = `${this.baseUrl}${id}`;
     const requestBody = {
       token: localStorage.getItem('token'),
     }
-    
-    return this.http.delete<{success:boolean, lid:number}>(requestUrl, {
+
+    return this.http.delete<{ success: boolean, lid: number }>(requestUrl, {
       body: requestBody
     }).pipe(
       map(response => {

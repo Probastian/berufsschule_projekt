@@ -31,6 +31,12 @@ export class TopbarComponent implements OnInit {
     return this._currentUser;
   }
 
+  public isAdmin():boolean {
+    const user = this.currentUser;
+    if (user === null || user === undefined) return false;
+    return user.isAdmin;
+  }
+
   public performLogin(form:NgForm) {
     if (form.valid) {
       const values = form.value;
