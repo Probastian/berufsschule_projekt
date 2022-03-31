@@ -1,6 +1,6 @@
 <span>
   <span class="bg-yarac-primary">
-    <a class="label">{{this.topic?.name}}</a>
+    <a class="label" [href]="'/topic/'+topic?.id">{{topic?.name}}</a>
     <div class="vr mx-1"></div>
     <a>{{getUsernameById(post?.userId)}}</a>
     <div class="vr mx-1"></div>

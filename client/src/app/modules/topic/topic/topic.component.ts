@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { Topic } from 'src/app/models/topic';
 import { User } from 'src/app/models/user';
@@ -28,7 +28,7 @@ export class TopicComponent implements OnInit, AfterViewInit {
   @ViewChild('label')
   public label: ElementRef | undefined;
 
-  constructor(private topicService:TopicService, private userSerivce:UserService,
+  constructor(private topicService:TopicService, private userSerivce:UserService, private router:Router,
               private postService:PostService, private route:ActivatedRoute) {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
     this.availableLabels = this.getAvailableLabels();

@@ -86,7 +86,9 @@
     <div class="row" id="row-posts">
       <div *ngFor="let post of this.posts" class="col-md-3 mb-2" id="card-post">
         <div class="card">
-          <div class="card-header">{{post.name}}</div>
+          <div class="card-header">
+            <a [href]="'/post/'+post.id"> {{post.name}} </a>
+          </div>
           <div class="card-body">
             <!-- <h6>Topic</h6> -->
             <p class="card-text">{{post.content}}</p>

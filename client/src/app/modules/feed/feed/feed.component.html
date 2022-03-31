@@ -21,7 +21,9 @@
     <div class="row" id="row-posts">
       <div class="col-md-3 mb-2" id="card-post" *ngFor="let post of posts">
         <div class="card">
-          <div class="card-header">{{post.name}}</div>
+          <div class="card-header">
+            <a [href]="'/post/'+post.id"> {{post.name}} </a>
+          </div>
           <div class="card-body p-2 pt-1">
             <small>Topic</small>
             <p class="card-text">{{post.content}}</p>
