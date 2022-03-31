@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { Topic } from 'src/app/models/topic';
 import { User } from 'src/app/models/user';
@@ -17,6 +18,7 @@ export class TopicComponent implements OnInit, AfterViewInit {
   private _topic:Topic|undefined;
   private _topicCreator:User|undefined;
   private _posts:Post[] = [];
+  private _currentUser:User;
 
   public availableLabels: string[];
 
@@ -26,10 +28,11 @@ export class TopicComponent implements OnInit, AfterViewInit {
   @ViewChild('label')
   public label: ElementRef | undefined;
 
-  constructor(private topicService:TopicService, private userSerivce:UserService,
+  constructor(private topicService:TopicService, private userSerivce:UserService, private router:Router,
               private postService:PostService, private route:ActivatedRoute) {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
     this.availableLabels = this.getAvailableLabels();
+    this._currentUser = userSerivce.getCurrentUser();
   }
 
   async ngOnInit() {
@@ -53,6 +56,21 @@ export class TopicComponent implements OnInit, AfterViewInit {
 
   public get posts():Post[] {
     return this._posts;
+  }
+
+  public createPost(form:NgForm) {
+    if (form.valid) {
+      const user = this._currentUser;
+      const topic = this.topic;
+      
+      if (user && topic) {
+        this.postService.createPost(topic.id, user.id, form.value).then(post => {
+          if (post) {
+            this._posts = [post].concat(this.posts);
+          }
+        });
+      }
+    }
   }
 
   getAvailableLabels(): string[] {

@@ -31,7 +31,8 @@ export class UserService {
   }
 
   public getCurrentUser():User {
-    return JSON.parse(localStorage.getItem('user') as string);
+    const userData = JSON.parse(localStorage.getItem('user') as string);
+    return new User(userData._id, userData._username, userData._email, userData._firstname, userData._lastname, userData._joinDate, userData._isAdmin);
   }
 
   public async performLogin(username:string, password:string) {

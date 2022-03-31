@@ -11,7 +11,7 @@
   <div class="modal fade" id="modal-new-post" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <form id="form-new-post">
+        <form #newPost="ngForm" (ngSubmit)="createPost(newPost)">
           <!--#newpost="ngForm"-->
           <div class="modal-header">
             <h5 class="modal-title">Create new post</h5>
@@ -20,22 +20,22 @@
           <div class="modal-body">
             <div class="form-group">
               <label>Header</label>
-              <input type="text" ngModel class="form-control" required="required" name="header">
+              <input type="text" ngModel name="title" class="form-control" required="required" name="header">
             </div>
             <div class="py-1"></div>
             <div class="form-group">
               <label>Labels</label>
               <ul class="labeltag-list form-control">
-                <input #autocomplete class="labeltag-input" type="text" (keyup.enter)="addLabel($event)">
+                <input #autocomplete name="labels" class="labeltag-input" type="text" (keyup.enter)="addLabel($event)">
               </ul>
             </div>
             <div class="form-group">
               <label>Description</label>
-              <textarea ngModel class="form-control span6" rows="8" required="required" name="description"></textarea>
+              <textarea ngModel name="description" class="form-control span6" rows="8" required="required"></textarea>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Post</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Post</button>
           </div>
         </form>
       </div>
@@ -86,9 +86,11 @@
     <div class="row" id="row-posts">
       <div *ngFor="let post of this.posts" class="col-md-3 mb-2" id="card-post">
         <div class="card">
-          <div class="card-header">{{post.name}}</div>
+          <div class="card-header">
+            <a [href]="'/post/'+post.id"> {{post.name}} </a>
+          </div>
           <div class="card-body">
-            <h6>Topic</h6>
+            <!-- <h6>Topic</h6> -->
             <p class="card-text">{{post.content}}</p>
           </div>
           <div class="card-footer text-muted" *ngIf="post.commentCount > 0">
