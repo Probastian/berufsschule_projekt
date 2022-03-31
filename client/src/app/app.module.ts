@@ -17,6 +17,7 @@ import { TopicModule } from './modules/topic/topic.module';
 import { FeedModule } from './modules/feed/feed.module';
 import { PostModule } from './modules/post/post.module';
 import { Page404Component } from './component/page404/page404.component';
+import { PostComponent } from './modules/post/post/post.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,7 @@ import { Page404Component } from './component/page404/page404.component';
     LoginComponent,
     BasepageComponent,
     UserComponent,
-    PostComponent,
-    Page404Component
+    Page404Component,
     UserComponent
   ],
   imports: [

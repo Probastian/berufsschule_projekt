@@ -1,4 +1,39 @@
-<h1>Topics</h1>
+<span>
+  <h1>Topics</h1>
+  <!-- TODO: Implement Admin Condition -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-new-topic">
+    New topic
+  </button>
+  <!-- New topic-Modal -->
+  <div class="modal fade" id="modal-new-topic" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <form id="form-new-topic">
+          <!--#newtopic="ngForm"-->
+          <div class="modal-header">
+            <h5 class="modal-title">Create new topic</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" ngModel class="form-control" required="required" name="name">
+            </div>
+            <div class="py-1"></div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea ngModel class="form-control span6" rows="8" required="required" name="description"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</span>
+<div class="my-2"></div>
 <div class="topicsContainer">
   <div class="border accordion accordion-flush" id="accordionFlushLetters">
     <div *ngFor="let topicKey of topicsMapKeys" class="accordion-item">
