@@ -63,6 +63,30 @@ export class PostService {
     ).toPromise();
   }
 
+  public async createPost(tid:number, uid:number, values:any):Promise<Post|undefined> {
+    const requestUrl = `${this.baseUrl}create`;
+    const requestBody = {
+      token: localStorage.getItem('token'),
+      tid: tid,
+      name: values.header,
+      content: values.description
+    }
+    
+    return this.http.post<{success:boolean, pid:number}>(requestUrl, requestBody).pipe(
+      map(response => {
+        console.log(response)
+        if (!response.success) return undefined;
+
+        console.log(values)
+        return new Post(response.pid, uid, tid, values.header, values.description, 0, new Date());
+      })
+    ).toPromise()
+  }
+
+  public async deletePost() {
+
+  }
+
   public async loadComments(pid:number):Promise<Comment[]> {
     const requestUrl = `${this.baseUrl}comment/id/${pid}`;
     console.log(requestUrl)
@@ -97,7 +121,13 @@ export class PostService {
     ).toPromise();
   }
 
-  public async postComment() {
-
+  public async postComment(pid:number, uid:number, text:string) {
+    const requestUrl = `${this.baseUrl}comment/create`;
+    const requestBody = {
+      token: localStorage.getItem('token'),
+      pid: pid,
+      uid: uid,
+	    text: text
+    }
   }
 }
