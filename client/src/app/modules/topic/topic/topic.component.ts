@@ -79,16 +79,6 @@ export class TopicComponent implements OnInit, AfterViewInit {
     return this._labels;
   }
 
-  public getLabelsAsAutocompletData() {
-    if (this._labels === undefined) return [];
-
-    let data = [];
-    for (let label of this._labels) {
-      data.push({name: label.name, id:label.id})
-    }
-    return data;
-  }
-
   public createPost(form:NgForm) {
     if (form.valid) {
       const user = this._currentUser;
