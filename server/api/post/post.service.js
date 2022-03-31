@@ -20,6 +20,19 @@ const getPostsByTopic = (tid, callBack) => {
     )
 }
 
+const getPostById = (pid, callBack) => {
+    mysql.query(
+        `select * from post where id=?`,
+        [pid],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result[0]);
+        }
+    )
+}
+
 const createPost = (uid, data, callBack) => {
     mysql.query(
         'insert into post(topic_id, user_id, name, content) values (?, ?, ?, ?)',
@@ -117,4 +130,4 @@ const removeLabel = (data, callBack) => {
     )
 }
 
-module.exports = { getPostsByTopic, createPost, deletePost, getSubscriptionPosts, createComment, deleteComment, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, createComment, deleteComment, addLabel, removeLabel }

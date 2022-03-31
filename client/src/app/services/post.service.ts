@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post';
 import { map } from "rxjs/operators";
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -23,13 +24,13 @@ export class PostService {
     const requestBody = {
       token: localStorage.getItem("token")
     }
-    
+
     return this.http.post<{success:boolean, data:any[]}>(requestUrl, requestBody).pipe(
       map(response => {
         if (!response.success) return [];
 
         return response.data.map(post => {
-          return new Post(post.id, post.user_id, post.name, post.content, post.commentCount, new Date(post.creationDate));  
+          return new Post(post.id, post.user_id, post.topicId, post.name, post.content, post.commentCount, new Date(post.creationDate));
         });
       })
     ).toPromise();
@@ -43,9 +44,22 @@ export class PostService {
         if (!response.success) return [];
 
         return response.data.map(post => {
-          return new Post(post.id, post.user_id, post.name, post.content, post.commentCount, new Date(post.creationDate));  
+          return new Post(post.id, post.user_id, post.topicId, post.name, post.content, post.commentCount, new Date(post.creationDate));
         });
       })
     ).toPromise()
+  }
+
+  public loadPostById(id:number):Observable<Post|undefined> {
+    const requestUrl = `${this.baseUrl}id/${id}`;
+
+    return this.http.get<{success:boolean, data:any}>(requestUrl).pipe(
+      map(response => {
+        if (!response.success) return undefined;
+
+        const data = response.data;
+        return new Post(data.id, data.user_id, data.topic_id, data.name, data.content, 0, new Date(data.creation_date));
+      })
+    );
   }
 }

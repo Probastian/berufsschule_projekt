@@ -1,10 +1,10 @@
 <span>
   <span class="bg-yarac-primary">
-    <a class="label">Topic</a>
+    <a class="label">{{this.topic?.name}}</a>
     <div class="vr mx-1"></div>
     <a>Username</a>
     <div class="vr mx-1"></div>
-    <a>dd.MM.yyyy</a>
+    <a>{{this.post?.creationDate | date: 'dd.MM.yyyy'}}</a>
   </span>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
@@ -33,22 +33,14 @@
     </div>
   </div>
 </span>
-<h1 class="mb-0">Post Title</h1>
+<h1 class="mb-0">{{post?.name}}</h1>
 <ul class="labeltag-list ps-0 mb-4">
   <li *ngFor="let label of log(labelsList)" class="labeltag">{{label}}</li>
 </ul>
 <div class="card">
   <div class="card-body p-1 px-2">
     <p class="card-text">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-      voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-      clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-      diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-      sit amet.
+      {{post?.content}}
     </p>
   </div>
 </div>

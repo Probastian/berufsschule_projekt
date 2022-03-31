@@ -23,7 +23,7 @@ const routes: Routes = [
         component: TopicComponent,
     },
     {
-        path: 'post', 
+        path: 'post/:id',
         component: PostComponent
     },
     {
@@ -31,15 +31,15 @@ const routes: Routes = [
         component: TopicsComponent
     },
     {
-        path: 'user', 
+        path: 'user',
         component: UserComponent
     },
     {
-        path: '404', 
+        path: '404',
         component: Page404Component
     },
     {
-        path: 'sitemap', 
+        path: 'sitemap',
         component: SitemapComponent
     },
     {

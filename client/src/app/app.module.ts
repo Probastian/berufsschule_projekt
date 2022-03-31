@@ -11,11 +11,11 @@ import { BasepageComponent } from './component/basepage/basepage.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PostComponent } from './modules/post/post/post.component';
 import { TopicsModule } from './modules/topics/topics.module';
 import { UserComponent } from './modules/user/user.component';
 import { TopicModule } from './modules/topic/topic.module';
 import { FeedModule } from './modules/feed/feed.module';
+import { PostModule } from './modules/post/post.module';
 import { Page404Component } from './component/page404/page404.component';
 
 @NgModule({
@@ -27,6 +27,7 @@ import { Page404Component } from './component/page404/page404.component';
     UserComponent,
     PostComponent,
     Page404Component
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ import { Page404Component } from './component/page404/page404.component';
     FontAwesomeModule,
     TopicsModule,
     TopicModule,
-    FeedModule
+    FeedModule,
+    PostModule
   ],
   providers: [],
   bootstrap: [AppComponent]

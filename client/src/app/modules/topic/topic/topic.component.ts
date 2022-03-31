@@ -26,29 +26,15 @@ export class TopicComponent implements OnInit, AfterViewInit {
   @ViewChild('label')
   public label: ElementRef | undefined;
 
-  constructor(private topicService:TopicService, private userSerivce:UserService, 
+  constructor(private topicService:TopicService, private userSerivce:UserService,
               private postService:PostService, private route:ActivatedRoute) {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
     this.availableLabels = this.getAvailableLabels();
   }
 
-  /*
-    this.route.params.subscribe(params => {
-      const topicId = parseInt(params.id);
-      if (topicId) {
-        this.topicService.loadById(topicId)
-          .then(async topic => {
-            if (topic !== undefined) {
-              this._topic = topic;
-            }
-          });
-      }
-    })
-  */
-
-  async ngOnInit() { 
+  async ngOnInit() {
     this._topic = await this.topicService.loadById(this.id);
-    
+
     if (this.topic !== undefined) {
       this._topicCreator = await this.userSerivce.getUserById(this.topic.creator)
       this._posts = await this.postService.loadPostsByTopic(this.topic.id);

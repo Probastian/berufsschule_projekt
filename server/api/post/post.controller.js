@@ -27,6 +27,30 @@ const getPostsByTopic = async (req, res) => {
     }); 
 }
 
+const getPostById = async (req, res) => {
+    const postId = parseInt(req.params.id);
+    console.log(postId)
+
+    postService.getPostById(postId, (error, result) => {
+        if (error || !result) {
+            return res.status(200).json({
+                success: false,
+                message: "Database connection error occured."
+            });
+        } else if (result.length < 1) {
+            return res.status(200).json({
+                success: false,
+                message: `No post found for id ${pid}`
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: result
+        })
+    })
+}
+
 const createPost = async (req, res) => {
     // Erstellt einen post
     const token = req.body.token;
@@ -185,4 +209,4 @@ const removeLabel = async(req, res) => {
     }
 }
 
-module.exports = { getPostsByTopic, createPost, deletePost, getSubscriptions, createComment, deleteComment, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, createComment, deleteComment, addLabel, removeLabel }
