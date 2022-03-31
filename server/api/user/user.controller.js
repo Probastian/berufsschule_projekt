@@ -84,6 +84,22 @@ const getUserByUsername = async (req, res) => {
     }
 }
 
+const getAllUsers = (req, res) => {
+    userService.getAllUsers((error, results) => {
+        if (error || results === undefined) {
+            return res.status(200).json({
+                success: false,
+                message: "Error occured while fetching the userdata."
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: results
+        });   
+    })
+}
+
 const getUserById = (req, res) => {
     const id = parseInt(req.params.id)
     if (id < 1) {
@@ -222,4 +238,4 @@ const login = (req, res) => {
     });
 }
 
-module.exports = { login, logout, createUser, getUserByUsername, getUserById, updateUser, deleteUser }
+module.exports = { login, logout, createUser, getAllUsers, getUserByUsername, getUserById, updateUser, deleteUser }

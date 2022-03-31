@@ -2,13 +2,13 @@
   <span class="bg-yarac-primary">
     <a class="label">{{this.topic?.name}}</a>
     <div class="vr mx-1"></div>
-    <a>Username</a>
+    <a>{{getUsernameById(post?.userId)}}</a>
     <div class="vr mx-1"></div>
     <a>{{this.post?.creationDate | date: 'dd.MM.yyyy'}}</a>
   </span>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
-  <button type="button" class="btn btn-danger f-right" data-bs-toggle="modal" data-bs-target="#modal-delete-post">
+  <button *ngIf="!hasPermission(post?.userId)" type="button" class="btn btn-danger f-right" data-bs-toggle="modal" data-bs-target="#modal-delete-post">
     Delete
   </button>
   <!-- Admin Delete-Modal -->
@@ -49,11 +49,11 @@
 <ul class="comments-list list-group">
   <li class="list-group-item comment" *ngFor="let comment of comments">
     <div class="d-flex w-100 align-items-center justify-content-between">
-      <strong class="mb-1">List group item heading</strong>
+      <strong class="mb-1">{{getUsernameById(comment.user_id)}}</strong>
       <div class="display-flex">
         <!-- Button trigger modal -->
         <!-- TODO: Implement Admin Condition -->
-        <a type="button" class="p-0 text-danger small" data-bs-toggle="modal" data-bs-target="#modal-delete-comment-id">
+        <a *ngIf="!hasPermission(comment.user_id)" type="button" class="p-0 text-danger small" data-bs-toggle="modal" data-bs-target="#modal-delete-comment-id">
           Delete
         </a>
         <!-- Admin Delete-Modal -->
@@ -78,7 +78,7 @@
           </div>
         </div>
         <div class="mx-1"></div>
-        <small class="text-muted">Wed</small>
+        <small class="text-muted">{{comment.creationDate | date: 'dd.MM.yyyy HH:mm'}}</small>
       </div>
     </div>
     <div class="col-10 mb-1 small">

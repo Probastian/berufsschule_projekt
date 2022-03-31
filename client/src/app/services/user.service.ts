@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { User } from '../models/user';
 
@@ -9,7 +10,25 @@ import { User } from '../models/user';
 export class UserService {
   private baseUrl = "api/user/"
 
-  constructor(private http:HttpClient) { }
+  private allUsers: User[] = [];
+
+  constructor(private http:HttpClient) { 
+    this.getAllUsers().subscribe(users => this.allUsers = users);
+  }
+
+  private getAllUsers():Observable<User[]> {
+    const requestUrl = `${this.baseUrl}all`;
+
+    return this.http.get<{success:boolean, data:any[]}>(requestUrl).pipe(
+      map(repsonse => {
+        if (!repsonse.success) return [];
+
+        return repsonse.data.map(user => {
+          return new User(user.id, user.username, user.email, user.firstname, user.lastname, user.join_date, user.role === 1)
+        });
+      })
+    )
+  }
 
   public getCurrentUser():User {
     return JSON.parse(localStorage.getItem('user') as string);
@@ -76,7 +95,7 @@ export class UserService {
       });
   }
 
-  public getUserById(id:number):Promise<User|undefined> {
+  public loadUserById(id:number):Promise<User|undefined> {
     const requestUrl = `${this.baseUrl}id/${id}`;
 
     return this.http.get<{success:boolean, data:any}>(requestUrl).pipe(
@@ -87,5 +106,11 @@ export class UserService {
         return new User(data.id, data.username, data.email, data.firstname, data.lastname, data.join_date, data.role === 1)
       })
     ).toPromise();
+  }
+
+  public getUserById(id:number):User|undefined{
+    const user = this.allUsers.find(u => u.id === id);
+    if (user) return user;
+    return undefined;
   }
 }

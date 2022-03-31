@@ -36,7 +36,7 @@ export class TopicComponent implements OnInit, AfterViewInit {
     this._topic = await this.topicService.loadById(this.id);
 
     if (this.topic !== undefined) {
-      this._topicCreator = await this.userSerivce.getUserById(this.topic.creator)
+      this._topicCreator = await this.userSerivce.loadUserById(this.topic.creator)
       this._posts = await this.postService.loadPostsByTopic(this.topic.id);
     }
   }
