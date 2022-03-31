@@ -1,10 +1,12 @@
 const router = require("express").Router();
 
-const { getAllTopics, getTopicById, createTopic, updateTopic, getSubscriptions, subscribe, unsubscribe } = require("./topic.controller");
+const { getAllTopics, getTopicById, createTopic, deleteTopic, updateTopic, getSubscriptions, subscribe, unsubscribe } = require("./topic.controller");
 
 router.get('/all', getAllTopics);
 router.get('/id/:id', getTopicById);
 router.get('/subs', getSubscriptions)
+
+router.delete('/', deleteTopic);
 
 router.post("/create", createTopic);
 router.post("/update", updateTopic);

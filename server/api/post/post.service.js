@@ -4,9 +4,6 @@ const mysql = require("../../config/database");
     post function
 */
 
-// Commencount subquery
-// 
-
 const getPostsByTopic = (tid, callBack) => {
     mysql.query(
         `select *, (select count(id) from comment where post_id=p.id) as commentCount from post p where p.topic_id=? order by p.creation_date desc`,
@@ -59,8 +56,21 @@ const deletePost = (id, callBack) => {
 
 const getSubscriptionPosts = (uid, callBack) => {
     mysql.query(
-        `select *, (select count(id) from comment where post_id=1) as commmentCount from post p left join topic_member tm on tm.tid=p.topic_id where tm.uid=? order by p.creation_date desc`,
+        `select p.*, (select count(id) from comment where post_id=p.id) as commmentCount from post p left join topic_member tm on tm.tid=p.topic_id where tm.uid=? order by p.creation_date desc`,
         [uid],
+        (error, results) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, results);
+        }
+    )
+}
+
+const getDefaultHomePosts = (callBack) => {
+    mysql.query(
+        `select p.*, (select count(id) from comment where post_id=p.id) as commmentCount from post p order by creation_date desc`,
+        [],
         (error, results) => {
             if (error) {
                 return callBack(error);
@@ -169,4 +179,4 @@ const removeLabel = (data, callBack) => {
     )
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getCommentsByPost, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getDefaultHomePosts, getCommentsByPost, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }

@@ -15,8 +15,18 @@ export class PostService {
 
 
   // Wenn kein user angemeldet ist der default feed für home
-  public loadDefaultFeed() {
+  public loadDefaultFeed():Promise<Post[]> {
+    const requestUrl = `${this.baseUrl}default`;
 
+    return this.http.get<{success:boolean, data:any[]}>(requestUrl).pipe(
+      map(response => {
+        if (!response.success) return [];
+
+        return response.data.map(post => {
+          return new Post(post.id, post.user_id, post.topic_ic, post.name, post.content, post.commentCount, new Date(post.creation_date))
+        })
+      })
+    ).toPromise()
   }
 
   public loadSubscriptionFeed() {
@@ -71,7 +81,7 @@ export class PostService {
       name: values.header,
       content: values.description
     }
-    
+
     return this.http.post<{success:boolean, pid:number}>(requestUrl, requestBody).pipe(
       map(response => {
         if (!response.success) return undefined;

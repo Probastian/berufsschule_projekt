@@ -57,6 +57,7 @@ export class TopbarComponent implements OnInit {
         .then(response => {
           if (response) {
             // modal schließen
+            window.location.reload();
           } else {
             // error loggen
           }
@@ -69,6 +70,6 @@ export class TopbarComponent implements OnInit {
 
   public performLogout() {
     this.userService.performLogout();
-    this.router.navigate(["/"])
+    window.location.reload();
   }
 }

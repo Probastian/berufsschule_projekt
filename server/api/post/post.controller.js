@@ -103,6 +103,22 @@ const getSubscriptions = async(req, res) => {
     }
 }
 
+const getDefaultHome = (req, res) => {
+    postService.getDefaultHomePosts((error, results) => {
+        if (error || !results) {
+            return res.status(200).json({
+                success: false,
+                message: "Database connection error occured."
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: results
+        });
+    });
+}
+
 const deletePost = async (req, res) => {
     const body = req.body;
 
@@ -258,4 +274,4 @@ const removeLabel = async(req, res) => {
     }
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getComments, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getDefaultHome, getComments, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }

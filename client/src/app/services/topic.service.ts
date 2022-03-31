@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from "rxjs/operators";
 import { Topic } from '../models/topic';
+import { User } from '../models/user';
 import { UserService } from './user.service';
 
 
@@ -10,8 +11,11 @@ import { UserService } from './user.service';
 })
 export class TopicService {
   private baseUrl = "api/topic/"
+  private currentUser:User|undefined;
 
-  constructor(private http:HttpClient, private userService:UserService) { }
+  constructor(private http:HttpClient, private userService:UserService) {
+    this.currentUser = userService.getCurrentUser();  
+  }
 
   public loadAllTopics():Promise<Topic[]> {
     const requestUrl = `${this.baseUrl}all`;
@@ -22,7 +26,7 @@ export class TopicService {
         if (!response.success) return [];
         
         return response.data.map(topic => {
-          return new Topic(topic.id, topic.name, topic.desciption, topic.creator);
+          return new Topic(topic.id, topic.name, topic.description, topic.creator);
         });
       })
     ).toPromise()
@@ -40,4 +44,37 @@ export class TopicService {
       })
     ).toPromise()
   }
-}
+
+  public createTopic(name:string, description:string):Promise<Topic|undefined> {
+    const requestUrl = `${this.baseUrl}create`;
+    const requestBody = {
+      token: localStorage.getItem("token"),
+      userId: this.currentUser?.id,
+      name: name, 
+      description: description
+    }
+
+    return this.http.post<{success:boolean, tid:number}>(requestUrl, requestBody).pipe(
+      map(response => {
+        if (!response.success) return undefined;
+
+        const uid = this.currentUser === undefined ? 0 : this.currentUser.id;
+        return new Topic(response.tid, name, description, uid);
+      })
+    ).toPromise();
+  }
+
+  public deleteTopic(id:number):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}/`;
+    const requestBody = {
+      token: localStorage.getItem("token"),
+      tid: id
+    }
+
+    return this.http.delete<{success:boolean}>(requestUrl, { body: requestBody } ).pipe(
+      map(response => {
+        return response.success;
+      })
+    ).toPromise();
+  }
+} 

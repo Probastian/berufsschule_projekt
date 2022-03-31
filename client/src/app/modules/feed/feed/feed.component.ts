@@ -14,11 +14,15 @@ export class FeedComponent implements OnInit {
   private _currentUser:User|undefined;
 
   constructor(private postService:PostService, private userService:UserService) {
-    this._currentUser = this.userService.getCurrentUser();  
+    this._currentUser = this.userService.getCurrentUser();
   }
 
   async ngOnInit() {
-    this._posts = await this.postService.loadSubscriptionFeed();
+    if (this._currentUser === undefined) {
+      this._posts = await this.postService.loadDefaultFeed();
+    } else {
+      this._posts = await this.postService.loadSubscriptionFeed();
+    }
   }
 
   public get posts():Post[] {
@@ -28,7 +32,7 @@ export class FeedComponent implements OnInit {
   public displayWelcomeBack():boolean {
     if (this._currentUser === null || this._currentUser === undefined) {
       return true;
-    } 
+    }
     return false;
   }
 

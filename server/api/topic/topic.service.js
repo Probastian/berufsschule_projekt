@@ -8,11 +8,11 @@
 
 const mysql = require("../../config/database");
 
-const create = (data, callBack) => {
+const create = (data, uid, callBack) => {
     mysql.query(
-        `INSERT INTO topic (name, description, creator, color) 
-                    values (?, ?, ?, ?)`,
-        [data.name, data.description, data.userId, data.color],
+        `INSERT INTO topic (name, description, creator) 
+                    values (?, ?, ?)`,
+        [data.name, data.description, uid],
         (error, result) => {
             if (error) {
                 return callBack(error);
@@ -24,13 +24,30 @@ const create = (data, callBack) => {
 
 const update = (data, callBack) => {
     mysql.query(
-        `UPDATE topic set name=?, description=?, color=? WHERE id=?`,
-        [data.name, data.description, data.color, data.tid],
+        `UPDATE topic set name=?, description=? WHERE id=?`,
+        [data.name, data.description, data.tid],
         (error, results) => {
             if (error) {
                 return callBack(error);
             }
             return callBack(null, results[0])
+        }
+    )
+}
+
+const deleteTopic = (tid, callBack) => {
+    let queries = 'delete pl, p from post_label pl inner join post p on pl.pid=p.id inner join topic t on t.id=p.topic_id where t.id=?;'
+    queries += 'delete from post where topic_id=?;'
+    queries += 'delete from topic where id=?;'
+
+    mysql.query(
+        queries, 
+        [tid, tid, tid],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
         }
     )
 }
@@ -100,4 +117,4 @@ const unsubscribe = (data, callBack) => {
     )
 }
 
-module.exports = { create, update,  getAll, getSubscriptions, getById, subscribe, unsubscribe }
+module.exports = { create, update, deleteTopic, getAll, getSubscriptions, getById, subscribe, unsubscribe }
