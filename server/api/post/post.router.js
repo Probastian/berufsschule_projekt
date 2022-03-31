@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getComments, createComment, deleteComment, getAllLabels, addLabel, removeLabel } = require('./post.controller');
+const { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptions, getComments, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel } = require('./post.controller');
 
 // Post
 router.get('/topic/:id', getPostsByTopic);
@@ -16,6 +16,7 @@ router.post('/comment/delete', deleteComment);
 
 //label
 router.get('/labels', getAllLabels);
+router.get('/label/:id', getLabelsForPost);
 router.post('/label/add', addLabel);
 router.post('/label/remove', removeLabel);
 

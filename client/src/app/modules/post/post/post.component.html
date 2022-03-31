@@ -36,7 +36,7 @@
 </span>
 <h1 class="mb-0">{{post?.name}}</h1>
 <ul class="labeltag-list ps-0 mb-4">
-  <li *ngFor="let label of log(labelsList)" class="labeltag">{{label}}</li>
+  <li *ngFor="let label of this.labels" class="labeltag">{{label.name}}</li>
 </ul>
 <div class="card">
   <div class="card-body p-1 px-2">

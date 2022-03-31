@@ -131,6 +131,10 @@ export class PostService {
     }
   }
 
+  /*
+    Label functions
+  */
+
   public async loadLabels() {
     const requestUrl = `${this.baseUrl}labels`
 
@@ -138,6 +142,17 @@ export class PostService {
       map(response => {
         if (!response.success) return [];
 
+        return response.data;
+      })
+    ).toPromise();
+  }
+
+  public async loadLabelForPost(id:number):Promise<Label[]> {
+    const requestUrl = `${this.baseUrl}label/${id}`;
+
+    return this.http.get<{success:boolean, data:Label[]}>(requestUrl).pipe(
+      map(response => {
+        if (!response.success) return [];
         return response.data;
       })
     ).toPromise();

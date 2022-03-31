@@ -130,6 +130,19 @@ const getAllLabels = (callBack) => {
     )
 }
 
+const getLabelsForPost = (pid, callBack) => {
+    mysql.query(
+        `SELECT l.* FROM label l LEFT JOIN post_label pl on pl.lid=l.id where pl.pid=?`,
+        [pid],
+        (error, result) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, result);
+        }
+    )
+}
+
 const addLabel = (data, callBack) => {
     mysql.query(
         `INSERT INTO post_label() values (?, ?)`,
@@ -156,4 +169,4 @@ const removeLabel = (data, callBack) => {
     )
 }
 
-module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getCommentsByPost, createComment, deleteComment, getAllLabels, addLabel, removeLabel }
+module.exports = { getPostsByTopic, getPostById, createPost, deletePost, getSubscriptionPosts, getCommentsByPost, createComment, deleteComment, getAllLabels, getLabelsForPost, addLabel, removeLabel }

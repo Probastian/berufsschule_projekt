@@ -42,6 +42,7 @@ export class PostComponent implements OnInit {
       this._post = post;
       this._topic = await this.topicService.loadById(post.topicId);
       this._comments = await this.postService.loadComments(post.id);
+      this._labels = await this.postService.loadLabelForPost(post.id);
     }
   }
 
@@ -55,6 +56,10 @@ export class PostComponent implements OnInit {
 
   public get comments():Comment[] {
     return this._comments;
+  }
+
+  public get labels():Label[] {
+    return this._labels;
   }
 
   public getUsernameById(id:number|undefined) {
