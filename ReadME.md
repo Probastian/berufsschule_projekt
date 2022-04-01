@@ -35,7 +35,7 @@ Diesen Ordner werden wir in diesem Guide als `YARAC-HOME` bezeichnen.
    *Bitte beachten Sie: Der Parameter `-p` ist nur zu verwenden, falls der User ein Passwort benötigt!*
 
    ```bash
-   mysql -u root -p < yarac.sql
+   mysql -u root -p yarac < yarac.sql
    ```
 8. Ihre Datenbank sollte nun einsatzbereit sein.
 
