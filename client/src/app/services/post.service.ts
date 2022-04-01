@@ -112,8 +112,17 @@ export class PostService {
     ).toPromise()
   }
 
-  public async deletePost() {
-
+  public deletePost(id:number):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}delete`;
+    const requestBody = {
+      token: localStorage.getItem("token"),
+      pid: id
+    }
+    return this.http.post<{success:boolean}>(requestUrl, requestBody ).pipe(
+      map(response => {
+        return response.success;
+      })
+    ).toPromise();
   }
 
   public async loadComments(pid:number):Promise<Comment[]> {
@@ -195,6 +204,21 @@ export class PostService {
 
   public async addLabel(id:number, pid:number):Promise<boolean> {
     const requestUrl = `${this.baseUrl}label/add`;
+    const requestBody = {
+      token: localStorage.getItem('token'),
+      pid: pid,
+      lid: id
+    }
+
+    return this.http.post<{success:boolean}>(requestUrl, requestBody).pipe(
+      map(response => {
+        return response.success
+      })
+    ).toPromise();
+  }
+
+  public async removeLabel(id:number, pid:number):Promise<boolean> {
+    const requestUrl = `${this.baseUrl}label/remove`;
     const requestBody = {
       token: localStorage.getItem('token'),
       pid: pid,
