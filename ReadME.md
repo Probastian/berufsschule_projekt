@@ -1,7 +1,5 @@
 # 🌐 Y.A.R.A.C.
 
----
-
 ### Was ist Y.A.R.A.C.?
 
 Y.A.R.A.C. ist im Grunde ein Forum. In diesem können Topics angelegt werden, welchen wiederrum Posts angehängt werden können. Ein User Managment ist ebenfalls vorhanden, inklusive Admin-Managment.
@@ -58,7 +56,7 @@ Diesen Ordner werden wir in diesem Guide als `YARAC-HOME` bezeichnen.
 5. Der API-Server sollte in wenigen Sekunden hochgefahren sein. Während der Ausführung der Applikation sollte der API-Server nicht gestoppt werden.
 6. Um die Applikation zu stoppen, drücken Sie bitte STRG+C.
 
-##### Appliklations-Guide
+##### Applikations-Guide
 
 1. Installieren Sie die aktuelle Version der [Node.js Software](https://nodejs.org/en/download/https://mariadb.org/downloa) für Ihr Betriebssystem, falls dies nicht bereits erfolgt ist.
 2. Öffnen Sie ein Terminal/eine Eingabeaufforderung und navigieren Sie zum Ordner `YARAC-HOME/client`.
