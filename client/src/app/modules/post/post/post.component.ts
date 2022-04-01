@@ -60,6 +60,10 @@ export class PostComponent implements OnInit {
     return this._labels;
   }
 
+  public get currentUser():User|undefined {
+    return this._currentUser;
+  }
+
   public getUsernameById(id:number|undefined) {
     if (id === undefined) return "not available";
     const user = this.userService.getUserById(id);
@@ -71,7 +75,7 @@ export class PostComponent implements OnInit {
 
   public hasPermission(element_uid:number|undefined):boolean {
     const user = this._currentUser;
-    if (user === null || user === undefined || element_uid === undefined) return true;
+    if (user === null || user === undefined || element_uid === undefined) return false;
 
     return (user.id === element_uid || user.isAdmin);
   } 

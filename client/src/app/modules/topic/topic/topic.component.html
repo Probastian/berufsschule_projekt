@@ -4,7 +4,7 @@
   </span>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
-  <button type="button" class="btn btn-primary f-right" data-bs-toggle="modal" data-bs-target="#modal-new-post">
+  <button *ngIf="currentUser" type="button" class="btn btn-primary f-right" data-bs-toggle="modal" data-bs-target="#modal-new-post">
     New post
   </button>
   <!-- New Post-Modal -->
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-danger f-right" data-bs-toggle="modal" data-bs-target="#modal-delete">
+  <button *ngIf="hasPermission(topic?.creator)" type="button" class="btn btn-danger f-right" data-bs-toggle="modal" data-bs-target="#modal-delete">
     Delete
   </button>
   <!-- Admin Delete-Modal -->

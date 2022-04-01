@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Label } from 'src/app/models/label';
 import { User } from 'src/app/models/user';
 import { LabelService } from 'src/app/services/label.service';
@@ -16,8 +17,12 @@ export class LabelsComponent implements OnInit {
   
   private _currentUser:User|undefined;
 
-  constructor(private labelService:LabelService, userService:UserService) { 
+  constructor(private labelService:LabelService, userService:UserService, router:Router) { 
     this._currentUser = userService.getCurrentUser();
+
+    if (!this.isAdmin()) {
+      router.navigate(['401']);
+    }
   }
 
   public get currentUser():User|undefined {

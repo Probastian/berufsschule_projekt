@@ -78,6 +78,10 @@ export class TopicComponent implements OnInit, AfterViewInit {
   public get labels():Label[] {
     return this._labels;
   }
+  
+  public get currentUser():User|undefined {
+    return this._currentUser;
+  }
 
   public createPost(form:NgForm) {
     if (form.valid) {
@@ -142,6 +146,13 @@ export class TopicComponent implements OnInit, AfterViewInit {
   isLabelValid(labelname: string): boolean {
     return this.availableLabels.includes(labelname);
   }
+
+  public hasPermission(element_uid:number|undefined):boolean {
+    const user = this._currentUser;
+    if (user === null || user === undefined || element_uid === undefined) return false;
+
+    return (user.id === element_uid || user.isAdmin);
+  } 
 
   @HostListener('click', ['$event']) onClick(event:any) {
     if (event.target.classList.contains("labeltag")) {

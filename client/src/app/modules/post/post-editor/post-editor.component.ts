@@ -90,7 +90,7 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
 
   public hasPermission(element_uid:number|undefined):boolean {
     const user = this._currentUser;
-    if (user === null || user === undefined || element_uid === undefined) return true;
+    if (user === null || user === undefined || element_uid === undefined) return false;
 
     return (user.id === element_uid || user.isAdmin);
   }

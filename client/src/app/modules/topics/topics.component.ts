@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Topic } from 'src/app/models/topic';
+import { User } from 'src/app/models/user';
 import { TopicService } from 'src/app/services/topic.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-topics',
@@ -11,14 +13,21 @@ import { TopicService } from 'src/app/services/topic.service';
 export class TopicsComponent implements OnInit {
   public topicsMap:Map<string, Topic[]> = new Map();
   public topicsMapKeys:Array<string> = [];
+ 
+  private _currentUser:User|undefined;
 
-  constructor(private topicService:TopicService) { }
+
+  constructor(private topicService:TopicService, private userService:UserService) { }
 
   ngOnInit(){
     this.topicService.loadAllTopics()
       .then(topics => { 
         this.mapTopics(topics);
       });
+  }
+
+  public get currentUser():User|undefined {
+    return this._currentUser;
   }
 
   private mapTopics(topics:Topic[]):void {

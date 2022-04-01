@@ -6,7 +6,7 @@
     <div class="vr mx-1"></div>
     <a>{{this.post?.creationDate | date: 'dd.MM.yyyy'}}</a>
   </span>
-  <a name="" id="" class="btn btn-primary f-right" [href]="'/post/' + post?.id + '/edit'" role="button">Edit</a>
+  <a *ngIf="currentUser" class="btn btn-primary f-right" [href]="'/post/' + post?.id + '/edit'" role="button">Edit</a>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
   <button *ngIf="hasPermission(post?.userId)" type="button" class="btn btn-danger f-right" data-bs-toggle="modal"
@@ -51,7 +51,7 @@
   <h3 class="mb-0">Comments ({{comments.length}})</h3>
   <!-- Button trigger modal -->
   <!-- TODO: Implement Admin Condition -->
-  <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modal-new-comment">
+  <button *ngIf="currentUser" type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modal-new-comment">
     New comment
   </button>
   <!-- New comment-Modal -->
