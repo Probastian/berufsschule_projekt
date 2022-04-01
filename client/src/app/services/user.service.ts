@@ -95,6 +95,7 @@ export class UserService {
       .then(response => {
         console.log(response)
         if (response.success) {
+          console.log("success")
           localStorage.clear();
         }
       }).catch(error => console.log(error));
