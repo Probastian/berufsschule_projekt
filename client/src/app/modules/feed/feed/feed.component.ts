@@ -18,11 +18,7 @@ export class FeedComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if (this._currentUser === undefined) {
-      this._posts = await this.postService.loadDefaultFeed();
-    } else {
-      this._posts = await this.postService.loadSubscriptionFeed();
-    }
+    this._posts = await this.postService.loadDefaultFeed();
   }
 
   public get posts():Post[] {
