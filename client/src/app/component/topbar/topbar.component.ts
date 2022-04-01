@@ -77,6 +77,6 @@ export class TopbarComponent implements OnInit {
 
   public performLogout() {
     this.userService.performLogout();
-    setTimeout(() => {window.location.reload()}, 200);
+    setTimeout(() => {window.location.reload()}, 500);
   }
 }

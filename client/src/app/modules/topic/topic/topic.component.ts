@@ -23,6 +23,7 @@ export class TopicComponent implements OnInit, AfterViewInit {
   private _labels:Label[] = [];
 
   private _autocompleteConfig = {
+    plugins: ['remove_button'],
     labelField: 'name',
     valueField: 'id',
     maxItems: 10,

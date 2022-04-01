@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { Topic } from 'src/app/models/topic';
 import { Comment } from 'src/app/models/comment';
@@ -24,7 +24,7 @@ export class PostComponent implements OnInit {
   private _currentUser:User|undefined;
   private _labels:Label[] = [];
 
-  constructor(private postService:PostService, private topicService:TopicService, private userService:UserService, private route:ActivatedRoute) {
+  constructor(private postService:PostService, private topicService:TopicService, private userService:UserService, private route:ActivatedRoute, private router:Router) {
     this.route.params.subscribe(params => this.id = parseInt(params.id));
     this._currentUser = this.userService.getCurrentUser();
 
@@ -103,6 +103,27 @@ export class PostComponent implements OnInit {
           this.comments.splice(this.comments.indexOf(comment), 1);
         }
       });
+  }
+
+  public async deletePost():Promise<void> {
+    if (this.post) {
+      this.labels.forEach(label => {
+        this.postService.removeLabel(label.id, this.post?.id ? this.post.id : -1);
+      });
+      
+      this.comments.forEach(comment => {
+        this.deleteComment(comment);
+      });
+
+      const response = await this.postService.deletePost(this.post.id)
+      if (response) {
+        this.router.navigate(["/posts"]);
+      } else {
+        alert("An error occured while deleting this post.")
+      }
+    } else {
+      alert("An error occured while deleting this post.")
+    }
   }
 
   getLabels():Array<string> {
